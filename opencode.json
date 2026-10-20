@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "wechat-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "wechat-dev-mcp"],
+      "enabled": true,
+      "environment": {
+        "WECHAT_PROJECT_PATH": "E:\\Vue\\qwbXcx",
+        "WECHAT_DEVTOOLS_CLI_PATH": "E:\\软件\\Wx\\微信web开发者工具\\cli.bat"
+      }
+    },
+    "figma": {
+      "type": "local",
+      "command": ["npx", "-y", "figma-developer-mcp", "--stdio"],
+      "enabled": true,
+      "environment": {
+        "FIGMA_API_KEY": "{env:FIGMA_API_KEY}"
+      }
+    }
+  }
+}
