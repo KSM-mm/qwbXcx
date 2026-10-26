@@ -1,0 +1,18 @@
+<t-navbar left-arrow />
+<t-toast id="t-toast" />
+<view class="page family-create">
+  <view class="family-create__title">创建家庭</view>
+  <view class="family-create__tips">登录后需先创建家庭，同一时间只能加入一个家庭</view>
+  <t-input
+    label="家庭名称"
+    placeholder="例如：我家"
+    maxlength="{{64}}"
+    value="{{name}}"
+    bindchange="onNameChange"
+  />
+  <view class="family-create__button">
+    <t-button theme="primary" size="large" block disabled="{{!canSubmit || loading}}" loading="{{loading}}" bindtap="onCreate">
+      创建并进入
+    </t-button>
+  </view>
+</view>

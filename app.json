@@ -25,6 +25,11 @@
       "pages": ["login"]
     },
     {
+      "root": "pages/family",
+      "name": "family",
+      "pages": ["create"]
+    },
+    {
       "root": "pages/loginCode",
       "name": "loginCode",
       "pages": ["loginCode"]

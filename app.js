@@ -10,6 +10,13 @@ if (config.isMock) {
 
 App({
   onLaunch() {
+    if (config.useCloud && !config.isMock) {
+      wx.cloud.init({
+        env: config.cloudEnv || undefined,
+        traceUser: true,
+      });
+    }
+
     const updateManager = wx.getUpdateManager();
 
     updateManager.onCheckForUpdate((res) => {
@@ -33,8 +40,9 @@ App({
   },
   globalData: {
     userInfo: null,
-    unreadNum: 0, // 未读消息数量
-    socket: null, // SocketTask 对象
+    family: null,
+    unreadNum: 0,
+    socket: null,
   },
 
   /** 全局事件总线 */

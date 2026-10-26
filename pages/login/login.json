@@ -7,6 +7,7 @@
     "t-link": "tdesign-miniprogram/link/link",
     "t-button": "tdesign-miniprogram/button/button",
     "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
-    "t-radio": "tdesign-miniprogram/radio/radio"
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-toast": "tdesign-miniprogram/toast/toast"
   }
 }

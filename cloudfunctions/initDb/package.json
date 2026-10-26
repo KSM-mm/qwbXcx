@@ -1,0 +1,9 @@
+{
+  "name": "initDb",
+  "version": "1.0.0",
+  "description": "create 10 collections and indexes",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

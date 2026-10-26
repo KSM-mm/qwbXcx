@@ -1,4 +1,4 @@
-import request from '~/api/request';
+import { callFamily, clearSession, getSession, saveSession } from '~/api/cloud';
 import useToastBehavior from '~/behaviors/useToast';
 
 Page({
@@ -6,82 +6,80 @@ Page({
 
   data: {
     isLoad: false,
-    service: [],
     personalInfo: {},
-    gridList: [
-      {
-        name: '全部发布',
-        icon: 'root-list',
-        type: 'all',
-        url: '',
-      },
-      {
-        name: '审核中',
-        icon: 'search',
-        type: 'progress',
-        url: '',
-      },
-      {
-        name: '已发布',
-        icon: 'upload',
-        type: 'published',
-        url: '',
-      },
-      {
-        name: '草稿箱',
-        icon: 'file-copy',
-        type: 'draft',
-        url: '',
-      },
-    ],
-
-    settingList: [
-      { name: '联系客服', icon: 'service', type: 'service' },
-      { name: '设置', icon: 'setting', type: 'setting', url: '/pages/setting/index' },
-    ],
+    family: null,
+    isOwner: false,
   },
 
-  onLoad() {
-    this.getServiceList();
-  },
-
-  async onShow() {
-    const Token = wx.getStorageSync('access_token');
-    const personalInfo = await this.getPersonalInfo();
-
-    if (Token) {
-      this.setData({
-        isLoad: true,
-        personalInfo,
-      });
+  onShow() {
+    const { token, user, family } = getSession();
+    if (!token || !user) {
+      this.setData({ isLoad: false, personalInfo: {}, family: null, isOwner: false });
+      return;
     }
-  },
-
-  getServiceList() {
-    request('/api/getServiceList').then((res) => {
-      const { service } = res.data.data;
-      this.setData({ service });
+    this.setData({
+      isLoad: true,
+      personalInfo: {
+        name: user.nickname || '微信用户',
+        image: user.avatarUrl || '',
+        star: family ? family.role : '',
+        city: family ? family.name : '未加入家庭',
+      },
+      family,
+      isOwner: !!(family && family.role === 'owner'),
     });
   },
 
-  async getPersonalInfo() {
-    const info = await request('/api/genPersonalInfo').then((res) => res.data.data);
-    return info;
+  onLogin() {
+    wx.navigateTo({ url: '/pages/login/login' });
   },
 
-  onLogin(e) {
-    wx.navigateTo({
-      url: '/pages/login/login',
-    });
+  onCreateFamily() {
+    wx.navigateTo({ url: '/pages/family/create' });
   },
 
   onNavigateTo() {
-    wx.navigateTo({ url: `/pages/my/info-edit/index` });
+    wx.navigateTo({ url: '/pages/my/info-edit/index' });
   },
 
-  onEleClick(e) {
-    const { name, url } = e.currentTarget.dataset.data;
-    if (url) return;
-    this.onShowToast('#t-toast', name);
+  async onLeaveFamily() {
+    wx.showModal({
+      title: '退出家庭',
+      content: '退出后需重新加入或创建家庭',
+      success: async (res) => {
+        if (!res.confirm) return;
+        try {
+          await callFamily('leave');
+          const session = getSession();
+          saveSession({ token: session.token, user: { ...session.user, currentFamilyId: '' }, family: null });
+          this.onShow();
+        } catch (error) {
+          this.onShowToast('#t-toast', error.message || '退出失败');
+        }
+      },
+    });
+  },
+
+  async onDissolveFamily() {
+    wx.showModal({
+      title: '解散家庭',
+      content: '所有成员将离开该家庭',
+      success: async (res) => {
+        if (!res.confirm) return;
+        try {
+          await callFamily('dissolve');
+          const session = getSession();
+          saveSession({ token: session.token, user: { ...session.user, currentFamilyId: '' }, family: null });
+          this.onShow();
+        } catch (error) {
+          this.onShowToast('#t-toast', error.message || '解散失败');
+        }
+      },
+    });
+  },
+
+  onLogout() {
+    clearSession();
+    this.onShow();
   },
 });

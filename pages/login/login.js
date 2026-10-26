@@ -1,85 +1,37 @@
-import request from '~/api/request';
+import { callLogin, saveSession } from '~/api/cloud';
+import useToastBehavior from '~/behaviors/useToast';
 
 Page({
+  behaviors: [useToastBehavior],
   data: {
-    phoneNumber: '',
-    isPhoneNumber: false,
     isCheck: false,
-    isSubmit: false,
-    isPasswordLogin: false,
-    passwordInfo: {
-      account: '',
-      password: '',
-    },
     radioValue: '',
+    loading: false,
   },
 
-  /* 自定义功能函数 */
-  changeSubmit() {
-    if (this.data.isPasswordLogin) {
-      if (this.data.passwordInfo.account !== '' && this.data.passwordInfo.password !== '' && this.data.isCheck) {
-        this.setData({ isSubmit: true });
-      } else {
-        this.setData({ isSubmit: false });
-      }
-    } else if (this.data.isPhoneNumber && this.data.isCheck) {
-      this.setData({ isSubmit: true });
-    } else {
-      this.setData({ isSubmit: false });
-    }
-  },
-
-  // 手机号变更
-  onPhoneInput(e) {
-    const isPhoneNumber = /^[1][3,4,5,7,8,9][0-9]{9}$/.test(e.detail.value);
-    this.setData({
-      isPhoneNumber,
-      phoneNumber: e.detail.value,
-    });
-    this.changeSubmit();
-  },
-
-  // 用户协议选择变更
   onCheckChange(e) {
     const { value } = e.detail;
     this.setData({
       radioValue: value,
       isCheck: value === 'agree',
     });
-    this.changeSubmit();
   },
 
-  onAccountChange(e) {
-    this.setData({ passwordInfo: { ...this.data.passwordInfo, account: e.detail.value } });
-    this.changeSubmit();
-  },
-
-  onPasswordChange(e) {
-    this.setData({ passwordInfo: { ...this.data.passwordInfo, password: e.detail.value } });
-    this.changeSubmit();
-  },
-
-  // 切换登录方式
-  changeLogin() {
-    this.setData({ isPasswordLogin: !this.data.isPasswordLogin, isSubmit: false });
-  },
-
-  async login() {
-    if (this.data.isPasswordLogin) {
-      const res = await request('/login/postPasswordLogin', 'post', { data: this.data.passwordInfo });
-      if (res.success) {
-        await wx.setStorageSync('access_token', res.data.token);
-        wx.switchTab({
-          url: `/pages/my/index`,
-        });
+  async loginWithWeChat() {
+    if (!this.data.isCheck || this.data.loading) return;
+    this.setData({ loading: true });
+    try {
+      const result = await callLogin();
+      saveSession(result);
+      if (result.data.family) {
+        wx.switchTab({ url: '/pages/my/index' });
+      } else {
+        wx.redirectTo({ url: '/pages/family/create' });
       }
-    } else {
-      const res = await request('/login/getSendMessage', 'get');
-      if (res.success) {
-        wx.navigateTo({
-          url: `/pages/loginCode/loginCode?phoneNumber=${this.data.phoneNumber}`,
-        });
-      }
+    } catch (error) {
+      this.onShowToast('#t-toast', error.message || '登录失败');
+    } finally {
+      this.setData({ loading: false });
     }
   },
 });
