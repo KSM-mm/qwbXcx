@@ -1,13 +1,13 @@
 <view class="q-page members">
   <q-header title="成员与权限" />
-  <q-guide text="管理员可管理成员与所有空间；私密空间始终只对创建者自己可见。" />
+  <q-guide text="家庭角色只作用于家庭共享空间；个人空间由所有者决定是否向指定家庭成员开放只读权限。" />
   <view class="members__note">
     <view class="members__note-icon">
       <q-icon name="lock" size="40" color="#73578a" />
     </view>
     <view>
       <view class="members__note-title">关于私人空间</view>
-      <view class="members__note-desc">私人空间中的物品、批次和备注仅创建者本人可见，不受家庭角色影响。</view>
+      <view class="members__note-desc">个人空间默认仅所有者可见；所有者可以选择一名或多名家庭成员只读查看。</view>
     </view>
   </view>
 

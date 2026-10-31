@@ -1,4 +1,3 @@
-<t-toast id="t-toast" />
 <view class="create">
   <view class="create__brand">
     <image class="create__brand-mark" src="/static/icons/brand.svg" mode="aspectFit" />

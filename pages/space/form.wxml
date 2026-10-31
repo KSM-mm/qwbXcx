@@ -1,6 +1,6 @@
 <view class="q-page space-form">
-  <q-header title="新建空间" />
-  <q-guide text="设置名称、类型与共享范围后，空间会出现在家庭首页；私密空间仅自己可见。" />
+  <q-header title="{{editing ? '管理空间' : '新建空间'}}" />
+  <q-guide text="家庭空间供当前家庭成员共同使用；个人空间默认仅自己可见，也可以只读共享给指定家庭成员。" />
 
   <view class="space-form__body">
     <view class="space-form__label">空间名称</view>
@@ -22,8 +22,8 @@
 
     <view class="space-form__label">可见范围</view>
     <view class="space-form__scope">
-      家庭成员均可查看
-      <q-icon name="chevron" size="34" color="#829188" />
+      {{privateOn ? '个人空间' : '家庭成员共同使用'}}
+      <q-icon name="{{privateOn ? 'lock' : 'users'}}" size="34" color="#829188" />
     </view>
 
     <view class="space-form__private">
@@ -31,15 +31,26 @@
         <q-icon name="lock" size="36" color="#76568b" />
       </view>
       <view class="space-form__private-body">
-        <view class="space-form__private-title">设为私人空间</view>
-        <view class="space-form__private-desc">仅你自己可查看和编辑</view>
+        <view class="space-form__private-title">创建为个人空间</view>
+        <view class="space-form__private-desc">{{hasFamily ? '可选择家庭成员只读查看' : '未加入家庭时仅自己可见'}}</view>
       </view>
       <view class="space-form__switch {{privateOn ? 'space-form__switch--on' : ''}}" bindtap="onTogglePrivate">
         <view class="space-form__knob"></view>
       </view>
     </view>
 
-    <view class="space-form__save" bindtap="onSave">保存空间</view>
+    <view wx:if="{{privateOn && hasFamily}}" class="space-form__shares">
+      <view class="space-form__label">只读共享给</view>
+      <view wx:if="{{members.length}}" class="space-form__member" wx:for="{{members}}" wx:key="userId" data-id="{{item.userId}}" bindtap="onToggleMember">
+        <view class="space-form__member-name">{{item.nickname}}</view>
+        <view class="space-form__member-check {{shareMap[item.userId] ? 'space-form__member-check--on' : ''}}">
+          <q-icon wx:if="{{shareMap[item.userId]}}" name="check" size="24" color="#ffffff" />
+        </view>
+      </view>
+      <view wx:if="{{!members.length}}" class="space-form__member-empty">当前家庭暂无其他成员</view>
+    </view>
+
+    <view class="space-form__save" bindtap="onSave">{{loading ? '保存中…' : (editing ? '保存修改' : '保存空间')}}</view>
   </view>
   <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>
 </view>

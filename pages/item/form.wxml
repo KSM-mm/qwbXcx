@@ -1,17 +1,40 @@
 <view class="q-page item-form">
   <q-header title="确认物品" />
-  <q-guide text="语音内容已整理为可编辑字段，确认无误后保存到当前空间。" />
-  <view class="item-form__voice">
-    <q-icon name="voice" size="28" color="#638171" />
-    <text>识别结果：两盒燕麦奶放到厨房，6 月 25 日到期</text>
+  <q-guide text="物品归属由所选空间决定：家庭空间中的物品归家庭，个人空间中的物品归空间所有者。" />
+  <view class="item-form__row">
+    <text class="item-form__label">物品名称</text>
+    <input class="item-form__input" value="{{name}}" placeholder="请输入名称" data-field="name" bindinput="onField" />
   </view>
-  <view class="item-form__row" wx:for="{{fields}}" wx:key="label">
-    <text class="item-form__label">{{item.label}}</text>
-    <view class="item-form__value">
-      {{item.value}}
-      <q-icon name="chevron" size="30" color="#829188" />
+  <view class="item-form__row">
+    <text class="item-form__label">数量</text>
+    <input class="item-form__input" type="digit" value="{{quantity}}" data-field="quantity" bindinput="onField" />
+  </view>
+  <view class="item-form__row">
+    <text class="item-form__label">单位</text>
+    <input class="item-form__input" value="{{unit}}" data-field="unit" bindinput="onField" />
+  </view>
+  <picker mode="selector" range="{{spaces}}" range-key="name" value="{{spaceIndex}}" bindchange="onSpaceChange">
+    <view class="item-form__row">
+      <text class="item-form__label">存放空间</text>
+      <view class="item-form__value">
+        {{spaces.length ? spaces[spaceIndex].name : '暂无可用空间'}}
+        <q-icon name="chevron" size="30" color="#829188" />
+      </view>
     </view>
+  </picker>
+  <picker mode="date" value="{{expiryDate}}" bindchange="onDateChange">
+    <view class="item-form__row">
+      <text class="item-form__label">到期日期</text>
+      <view class="item-form__value">
+        {{expiryDate || '不设置'}}
+        <q-icon name="chevron" size="30" color="#829188" />
+      </view>
+    </view>
+  </picker>
+  <view class="item-form__row">
+    <text class="item-form__label">分类</text>
+    <input class="item-form__input" value="{{category}}" placeholder="例如食品" data-field="category" bindinput="onField" />
   </view>
-  <view class="item-form__save" bindtap="onSave">确认并保存</view>
+  <view class="item-form__save" bindtap="onSave">{{loading ? '保存中…' : '确认并保存'}}</view>
   <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>
 </view>

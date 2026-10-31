@@ -6,6 +6,12 @@ export function ensureSession() {
     wx.redirectTo({ url: '/pages/login/login' });
     return null;
   }
+  return session;
+}
+
+export function ensureFamily() {
+  const session = ensureSession();
+  if (!session) return null;
   if (!session.family) {
     wx.redirectTo({ url: '/pages/family/create' });
     return null;

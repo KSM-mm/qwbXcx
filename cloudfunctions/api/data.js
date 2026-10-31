@@ -1,6 +1,6 @@
 const homeCards = [
   {
-    url: '/static/home/card0.png',
+    url: '/static/image1.png',
     desc: '少年,星空与梦想',
     tags: [
       { text: 'AI绘画', theme: 'primary' },
@@ -8,7 +8,7 @@ const homeCards = [
     ],
   },
   {
-    url: '/static/home/card1.png',
+    url: '/static/image2.png',
     desc: '仰望星空的少女',
     tags: [
       { text: 'AI绘画', theme: 'primary' },
@@ -16,7 +16,7 @@ const homeCards = [
     ],
   },
   {
-    url: '/static/home/card3.png',
+    url: '/static/image1.png',
     desc: '仰望星空的少年',
     tags: [
       { text: 'AI绘画', theme: 'primary' },
@@ -24,7 +24,7 @@ const homeCards = [
     ],
   },
   {
-    url: '/static/home/card2.png',
+    url: '/static/image2.png',
     desc: '少年,星空与梦想',
     tags: [
       { text: 'AI绘画', theme: 'primary' },
@@ -32,7 +32,7 @@ const homeCards = [
     ],
   },
   {
-    url: '/static/home/card4.png',
+    url: '/static/image1.png',
     desc: '多彩的天空',
     tags: [
       { text: 'AI绘画', theme: 'primary' },
@@ -41,21 +41,21 @@ const homeCards = [
   },
 ];
 
-const homeSwipers = new Array(6).fill('/static/home/swiper0.png');
+const homeSwipers = new Array(6).fill('/static/image2.png');
 
 const serviceList = [
-  { image: '/static/icon_wx.png', name: '微信', type: 'weixin', url: '' },
-  { image: '/static/icon_qq.png', name: 'QQ', type: 'QQ', url: '' },
-  { image: '/static/icon_doc.png', name: '腾讯文档', type: 'document', url: '' },
-  { image: '/static/icon_map.png', name: '腾讯地图', type: 'map', url: '' },
-  { image: '/static/icon_td.png', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
-  { image: '/static/icon_td.png', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
-  { image: '/static/icon_td.png', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
-  { image: '/static/icon_td.png', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
+  { image: '/static/icons/image.svg', name: '微信', type: 'weixin', url: '' },
+  { image: '/static/icons/image.svg', name: 'QQ', type: 'QQ', url: '' },
+  { image: '/static/icons/image.svg', name: '腾讯文档', type: 'document', url: '' },
+  { image: '/static/icons/image.svg', name: '腾讯地图', type: 'map', url: '' },
+  { image: '/static/icons/image.svg', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
+  { image: '/static/icons/image.svg', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
+  { image: '/static/icons/image.svg', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
+  { image: '/static/icons/image.svg', name: '数据中心', type: 'data', url: '/pages/dataCenter/index' },
 ];
 
 const personalInfo = {
-  image: '/static/avatar1.png',
+  image: '/static/chat/avatar.png',
   name: '小小轩',
   star: '天枰座',
   gender: 0,

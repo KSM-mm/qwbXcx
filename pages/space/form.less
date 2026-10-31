@@ -117,6 +117,51 @@
     transition: transform 0.2s;
   }
 
+  &__shares {
+    margin-top: 24rpx;
+  }
+
+  &__member {
+    display: flex;
+    align-items: center;
+    min-height: 88rpx;
+    padding: 0 24rpx;
+    border-bottom: 2rpx solid #e7ebe5;
+    background: #fff;
+
+    &:first-of-type {
+      border-radius: 24rpx 24rpx 0 0;
+    }
+  }
+
+  &__member-name {
+    flex: 1;
+    font-size: 26rpx;
+  }
+
+  &__member-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40rpx;
+    height: 40rpx;
+    border: 2rpx solid #b9c8be;
+    border-radius: 50%;
+
+    &--on {
+      border-color: #4c8b5e;
+      background: #4c8b5e;
+    }
+  }
+
+  &__member-empty {
+    padding: 28rpx 24rpx;
+    border-radius: 24rpx;
+    background: #fff;
+    color: #7c8c82;
+    font-size: 24rpx;
+  }
+
   &__save {
     display: flex;
     align-items: center;

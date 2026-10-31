@@ -4,6 +4,10 @@ Component({
       type: Boolean,
       value: false,
     },
+    spaceId: {
+      type: String,
+      value: '',
+    },
   },
   methods: {
     onClose() {
@@ -16,11 +20,13 @@ Component({
     },
     goVoice() {
       this.triggerEvent('close');
-      wx.navigateTo({ url: '/pages/voice/index?mode=add' });
+      const suffix = this.data.spaceId ? `&spaceId=${this.data.spaceId}` : '';
+      wx.navigateTo({ url: `/pages/voice/index?mode=add${suffix}` });
     },
     goForm() {
       this.triggerEvent('close');
-      wx.navigateTo({ url: '/pages/item/form' });
+      const suffix = this.data.spaceId ? `?spaceId=${this.data.spaceId}` : '';
+      wx.navigateTo({ url: `/pages/item/form${suffix}` });
     },
   },
 });

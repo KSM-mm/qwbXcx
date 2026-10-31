@@ -6,7 +6,7 @@ export default {
     code: 200,
     message: 'success',
     data: {
-      image: '/static/avatar1.png',
+      image: '/static/chat/avatar.png',
       name: '小小轩',
       star: '天枰座',
       gender: 0,
@@ -15,12 +15,12 @@ export default {
       brief: '在你身边，为你设计',
       photos: [
         {
-          url: getLocalUrl('/static/img_td.png', 'uploaded1.png'),
+          url: getLocalUrl('/static/image1.png', 'uploaded1.png'),
           name: 'uploaded1.png',
           type: 'image',
         },
         {
-          url: getLocalUrl('/static/img_td.png', 'uploaded2.png'),
+          url: getLocalUrl('/static/image2.png', 'uploaded2.png'),
           name: 'uploaded2.png',
           type: 'image',
         },

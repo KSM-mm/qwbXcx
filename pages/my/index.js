@@ -1,9 +1,6 @@
 import { callFamily, clearSession, getSession, saveSession } from '~/api/cloud';
-import useToastBehavior from '~/behaviors/useToast';
 
 Page({
-  behaviors: [useToastBehavior],
-
   data: {
     isLoad: false,
     personalInfo: {},
@@ -54,7 +51,7 @@ Page({
           saveSession({ token: session.token, user: { ...session.user, currentFamilyId: '' }, family: null });
           this.onShow();
         } catch (error) {
-          this.onShowToast('#t-toast', error.message || '退出失败');
+          wx.showToast({ title: error.message || '退出失败', icon: 'none' });
         }
       },
     });
@@ -72,7 +69,7 @@ Page({
           saveSession({ token: session.token, user: { ...session.user, currentFamilyId: '' }, family: null });
           this.onShow();
         } catch (error) {
-          this.onShowToast('#t-toast', error.message || '解散失败');
+          wx.showToast({ title: error.message || '解散失败', icon: 'none' });
         }
       },
     });

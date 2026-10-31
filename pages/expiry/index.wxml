@@ -6,7 +6,7 @@
       <q-icon name="clock" size="40" color="#b86a28" />
     </view>
     <view>
-      <view class="expiry__banner-title">本周有 3 件物品待处理</view>
+      <view class="expiry__banner-title">本周有 {{total}} 件物品待处理</view>
       <view class="expiry__banner-desc">及时食用，减少不必要的浪费</view>
     </view>
   </view>

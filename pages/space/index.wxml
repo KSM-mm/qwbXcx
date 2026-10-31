@@ -1,7 +1,12 @@
 <view class="q-page space">
   <q-header title="{{space.name}}">
-    <view slot="right" class="space__plus" bindtap="onAdd">
-      <q-icon name="plus" size="36" color="#468158" />
+    <view wx:if="{{space.canEdit}}" slot="right" class="space__header-actions">
+      <view class="space__plus" bindtap="goManage">
+        <q-icon name="settings" size="32" color="#468158" />
+      </view>
+      <view class="space__plus" bindtap="onAdd">
+        <q-icon name="plus" size="36" color="#468158" />
+      </view>
     </view>
   </q-header>
   <q-guide text="{{guideText}}" />
@@ -32,7 +37,7 @@
         搜索
       </view>
     </view>
-    <view wx:if="{{!space.shared}}" class="space__private">
+    <view wx:if="{{space.isPersonal && space.visibility === 'private' && !items.length}}" class="space__private">
       <view class="space__private-icon">
         <q-icon name="lock" size="40" color="#76568b" />
       </view>
@@ -45,8 +50,8 @@
     </view>
   </view>
 
-  <view class="space__fab" bindtap="onAdd">
+  <view wx:if="{{space.canEdit}}" class="space__fab" bindtap="onAdd">
     <q-icon name="plus" size="50" color="#ffffff" />
   </view>
-  <q-add-sheet show="{{sheet}}" bind:close="onCloseSheet" />
+  <q-add-sheet show="{{sheet}}" spaceId="{{spaceId}}" bind:close="onCloseSheet" />
 </view>

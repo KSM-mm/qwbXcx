@@ -38,7 +38,7 @@ async function getFamilyPayload(userId, familyId) {
     .limit(1)
     .get();
   const member = memberRes.data[0];
-  if (!family || !member) return null;
+  if (!family || family.status === 'dissolved' || !member) return null;
   return {
     _id: family._id,
     name: family.name,

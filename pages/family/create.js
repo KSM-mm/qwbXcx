@@ -1,8 +1,6 @@
 import { callFamily, getSession, saveSession } from '~/api/cloud';
-import useToastBehavior from '~/behaviors/useToast';
 
 Page({
-  behaviors: [useToastBehavior],
   data: {
     name: '',
     canSubmit: false,
@@ -41,7 +39,7 @@ Page({
       });
       wx.switchTab({ url: '/pages/home/index' });
     } catch (error) {
-      this.onShowToast('#t-toast', error.message || '创建失败');
+      wx.showToast({ title: error.message || '创建失败', icon: 'none' });
     } finally {
       this.setData({ loading: false });
     }

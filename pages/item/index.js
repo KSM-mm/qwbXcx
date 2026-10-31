@@ -1,4 +1,5 @@
-import { getItem } from '~/utils/qi-data';
+import { callInventory } from '~/api/cloud';
+import { ensureSession } from '~/utils/auth';
 
 Page({
   data: {
@@ -6,22 +7,36 @@ Page({
     batches: [],
     sheet: false,
     toast: '',
+    itemId: '',
+    pendingBatchId: '',
   },
   onLoad(query) {
-    const item = getItem(query.id);
-    const batches = item.batches && item.batches.length
-      ? item.batches
-      : [{ amount: item.amount, expiry: item.expiry, level: item.level, tone: item.tone }];
-    this.setData({ item, batches });
+    this.setData({ itemId: query.id || '' });
   },
-  onDelete() {
-    this.setData({ sheet: true });
+  async onShow() {
+    if (!ensureSession() || !this.data.itemId) return;
+    try {
+      const result = await callInventory('getItem', { itemId: this.data.itemId });
+      this.setData({ item: result.data.item, batches: result.data.item.batches });
+    } catch (error) {
+      wx.showToast({ title: error.message || '加载失败', icon: 'none' });
+    }
+  },
+  onDelete(e) {
+    this.setData({ sheet: true, pendingBatchId: e.currentTarget.dataset.id });
   },
   onCancel() {
     this.setData({ sheet: false });
   },
-  onConfirmDelete() {
-    this.setData({ sheet: false, toast: '批次已清空' });
-    setTimeout(() => this.setData({ toast: '' }), 1800);
+  async onConfirmDelete() {
+    try {
+      await callInventory('archiveBatch', { batchId: this.data.pendingBatchId });
+      this.setData({ sheet: false, pendingBatchId: '', toast: '批次已清空' });
+      await this.onShow();
+      setTimeout(() => this.setData({ toast: '' }), 1800);
+    } catch (error) {
+      this.setData({ sheet: false });
+      wx.showToast({ title: error.message || '操作失败', icon: 'none' });
+    }
   },
 });

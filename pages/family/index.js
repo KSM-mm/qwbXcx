@@ -1,10 +1,7 @@
-import { getSpaces } from '~/utils/qi-data';
-import { callFamily, getSession, saveSession } from '~/api/cloud';
-import { ensureSession, roleText } from '~/utils/auth';
-import useToastBehavior from '~/behaviors/useToast';
+import { callFamily, callInventory, getSession, saveSession } from '~/api/cloud';
+import { ensureFamily, roleText } from '~/utils/auth';
 
 Page({
-  behaviors: [useToastBehavior],
   data: {
     spaces: [],
     family: null,
@@ -13,17 +10,25 @@ Page({
     isOwner: false,
     memberCount: 1,
   },
-  onShow() {
-    const session = ensureSession();
+  async onShow() {
+    const session = ensureFamily();
     if (!session) return;
-    this.setData({
-      spaces: getSpaces().slice(0, 3),
-      family: session.family,
-      familyName: session.family.name,
-      roleLabel: roleText(session.family.role),
-      isOwner: session.family.role === 'owner',
-      memberCount: 1,
-    });
+    try {
+      const [spaceResult, memberResult] = await Promise.all([
+        callInventory('listSpaces'),
+        callFamily('members'),
+      ]);
+      this.setData({
+        spaces: spaceResult.data.spaces.filter((space) => !space.isPersonal),
+        family: session.family,
+        familyName: session.family.name,
+        roleLabel: roleText(session.family.role),
+        isOwner: session.family.role === 'owner',
+        memberCount: memberResult.data.members.length,
+      });
+    } catch (error) {
+      wx.showToast({ title: error.message || '加载失败', icon: 'none' });
+    }
   },
   goSpace(e) {
     const { id } = e.currentTarget.dataset;
@@ -33,7 +38,7 @@ Page({
     wx.navigateTo({ url: '/pages/members/index' });
   },
   goInvite() {
-    this.onShowToast('#t-toast', '邀请功能暂未开放');
+    wx.showToast({ title: '邀请功能暂未开放', icon: 'none' });
   },
   goSpaceForm() {
     wx.navigateTo({ url: '/pages/space/form' });
@@ -48,9 +53,9 @@ Page({
           await callFamily('leave');
           const session = getSession();
           saveSession({ token: session.token, user: { ...session.user, currentFamilyId: '' }, family: null });
-          wx.redirectTo({ url: '/pages/family/create' });
+          wx.switchTab({ url: '/pages/home/index' });
         } catch (error) {
-          this.onShowToast('#t-toast', error.message || '退出失败');
+          wx.showToast({ title: error.message || '退出失败', icon: 'none' });
         }
       },
     });
@@ -65,9 +70,9 @@ Page({
           await callFamily('dissolve');
           const session = getSession();
           saveSession({ token: session.token, user: { ...session.user, currentFamilyId: '' }, family: null });
-          wx.redirectTo({ url: '/pages/family/create' });
+          wx.switchTab({ url: '/pages/home/index' });
         } catch (error) {
-          this.onShowToast('#t-toast', error.message || '解散失败');
+          wx.showToast({ title: error.message || '解散失败', icon: 'none' });
         }
       },
     });

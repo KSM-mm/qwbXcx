@@ -1,7 +1,4 @@
 {
   "navigationStyle": "custom",
-  "navigationBarTextStyle": "black",
-  "usingComponents": {
-    "t-toast": "tdesign-miniprogram/toast/toast"
-  }
+  "navigationBarTextStyle": "black"
 }

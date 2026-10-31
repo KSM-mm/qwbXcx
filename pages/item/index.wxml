@@ -44,7 +44,7 @@
         <q-pill wx:if="{{item.level}}" text="{{item.expiry}}" tone="{{item.tone}}" />
         <text wx:else class="item__batch-expiry">{{item.expiry}}</text>
       </view>
-      <view class="item__trash" bindtap="onDelete">
+      <view wx:if="{{item.canEdit}}" class="item__trash" data-id="{{item.id}}" bindtap="onDelete">
         <q-icon name="trash" size="34" color="#a85e4b" />
       </view>
     </view>

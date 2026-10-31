@@ -5,7 +5,7 @@
         <q-icon name="users" size="38" color="#4b8559" />
       </view>
       <view>
-        <view class="home__family-label">当前家庭</view>
+        <view class="home__family-label">{{hasFamily ? '当前家庭' : '当前模式'}}</view>
         <view class="home__family-name">
           {{familyName}}
           <q-icon name="chevron" size="30" color="#29483b" />
@@ -24,8 +24,8 @@
       <q-icon name="bell" size="40" color="#b56828" />
     </view>
     <view class="home__alert-body">
-      <view class="home__alert-title">2 件物品即将到期</view>
-      <view class="home__alert-desc">鲜牛奶今天到期，意面将在 3 天后到期</view>
+      <view class="home__alert-title">{{expiryCount}} 件物品即将到期</view>
+      <view class="home__alert-desc">{{expirySummary}}</view>
     </view>
     <view class="home__alert-link" bindtap="goExpiry">查看</view>
   </view>

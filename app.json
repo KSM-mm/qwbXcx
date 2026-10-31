@@ -5,9 +5,7 @@
     "pages/expiry/index",
     "pages/list/index"
   ],
-  "usingComponents": {
-    "t-toast": "tdesign-miniprogram/toast/toast"
-  },
+  "lazyCodeLoading": "requiredComponents",
   "subpackages": [
     {
       "root": "pages/login",

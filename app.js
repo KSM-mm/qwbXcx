@@ -1,12 +1,7 @@
 // app.js
 import config from './config';
-import Mock from './mock/index';
 import createBus from './utils/eventBus';
 import { connectSocket, fetchUnreadNum } from './mock/chat';
-
-if (config.isMock) {
-  Mock();
-}
 
 App({
   onLaunch() {

@@ -1,4 +1,3 @@
-<t-toast id="t-toast" />
 <view class="q-page family">
   <q-header title="家庭管理" />
 

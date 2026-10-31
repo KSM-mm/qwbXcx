@@ -145,6 +145,53 @@
     background: #d9dfd8;
   }
 
+  &__form-title {
+    margin-top: 36rpx;
+    font-size: 30rpx;
+    font-weight: 700;
+  }
+
+  &__form-row,
+  &__scopes {
+    display: flex;
+    gap: 16rpx;
+  }
+
+  &__input {
+    height: 88rpx;
+    margin-top: 20rpx;
+    padding: 0 24rpx;
+    border: 2rpx solid #dfe7df;
+    border-radius: 20rpx;
+    background: #fff;
+    box-sizing: border-box;
+    font-size: 26rpx;
+
+    &--half {
+      flex: 1;
+      width: 0;
+    }
+  }
+
+  &__scopes {
+    margin-top: 20rpx;
+  }
+
+  &__scope {
+    flex: 1;
+    padding: 20rpx;
+    border: 2rpx solid #dfe7df;
+    border-radius: 20rpx;
+    text-align: center;
+    color: #6f8075;
+
+    &--on {
+      border-color: #6ea57a;
+      background: #edf6eb;
+      color: #417c51;
+    }
+  }
+
   &__warn {
     display: flex;
     gap: 24rpx;

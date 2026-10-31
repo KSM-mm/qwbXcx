@@ -14,6 +14,10 @@ export function callFamily(action, data = {}) {
   return wx.cloud.callFunction({ name: 'family', data: { action, ...data } }).then(unwrap);
 }
 
+export function callInventory(action, data = {}) {
+  return wx.cloud.callFunction({ name: 'inventory', data: { action, ...data } }).then(unwrap);
+}
+
 export function saveSession(payload) {
   const { token, user, family } = payload.data || payload;
   wx.setStorageSync('access_token', token || (user && user._id) || '');

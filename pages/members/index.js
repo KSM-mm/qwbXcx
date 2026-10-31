@@ -1,33 +1,35 @@
-import { ensureSession, roleText } from '~/utils/auth';
+import { callFamily } from '~/api/cloud';
+import { ensureFamily, roleText } from '~/utils/auth';
 
 Page({
   data: {
     members: [],
     roles: [
-      { role: '管理员', desc: '管理成员、空间及所有共享物品', color: '#63a070' },
-      { role: '可编辑', desc: '新增、修改和整理共享物品', color: '#d69a45' },
-      { role: '仅查看', desc: '查看共享物品，不能编辑', color: '#8197aa' },
-      { role: '无权限', desc: '无法访问此家庭', color: '#b9c0bc' },
+      { role: '拥有者 / 管理员', desc: '管理成员、家庭空间及家庭物品', color: '#63a070' },
+      { role: '家庭成员', desc: '新增、修改和整理家庭共享物品', color: '#d69a45' },
+      { role: '个人空间访客', desc: '仅查看空间所有者明确共享的个人空间', color: '#8197aa' },
     ],
   },
   onInvite() {
     wx.showToast({ title: '邀请功能暂未开放', icon: 'none' });
   },
-  onShow() {
-    const session = ensureSession();
+  async onShow() {
+    const session = ensureFamily();
     if (!session) return;
-    const nickname = session.user.nickname || '微信用户';
-    this.setData({
-      members: [
-        {
-          name: nickname,
-          initials: nickname.slice(0, 1),
-          role: roleText(session.family.role),
-          tone: 'green',
-          color: '#f2c5a5',
-          self: true,
-        },
-      ],
-    });
+    try {
+      const result = await callFamily('members');
+      this.setData({
+        members: result.data.members.map((member) => ({
+          ...member,
+          name: member.nickname,
+          initials: member.nickname.slice(0, 1),
+          role: roleText(member.role),
+          tone: member.role === 'owner' || member.role === 'admin' ? 'green' : 'orange',
+          color: member.self ? '#f2c5a5' : '#bad3ed',
+        })),
+      });
+    } catch (error) {
+      wx.showToast({ title: error.message || '加载失败', icon: 'none' });
+    }
   },
 });
