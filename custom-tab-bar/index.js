@@ -1,6 +1,7 @@
 Component({
   data: {
     value: 'home',
+    hidden: false,
     sheet: false,
     list: [
       { icon: 'home', value: 'home', label: '首页', url: '/pages/home/index' },
@@ -33,10 +34,10 @@ Component({
       wx.switchTab({ url });
     },
     onAdd() {
-      this.setData({ sheet: true });
+      this.setData({ sheet: true, hidden: true });
     },
     onCloseSheet() {
-      this.setData({ sheet: false });
+      this.setData({ sheet: false, hidden: false });
     },
   },
 });

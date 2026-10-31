@@ -47,7 +47,9 @@
         <view class="list__scope {{addScope === 'family' ? 'list__scope--on' : ''}}" data-scope="family" bindtap="onScope">家庭清单</view>
         <view class="list__scope {{addScope === 'personal' ? 'list__scope--on' : ''}}" data-scope="personal" bindtap="onScope">个人清单</view>
       </view>
-      <view class="list__keep" bindtap="onKeepAdd">加入购物清单</view>
+      <view class="list__keep {{adding ? 'list__keep--loading' : ''}}" catchtap="onKeepAdd">
+        {{adding ? '正在添加…' : '加入购物清单'}}
+      </view>
     </view>
   </view>
   <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>

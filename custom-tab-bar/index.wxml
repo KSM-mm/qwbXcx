@@ -1,4 +1,4 @@
-<view class="q-tab">
+<view class="q-tab {{hidden ? 'q-tab--hidden' : ''}}">
   <view class="q-tab__item" bindtap="onNav" data-url="/pages/home/index">
     <q-icon name="home" size="40" color="{{value === 'home' ? '#3d7850' : '#87958d'}}" />
     <text class="q-tab__label {{value === 'home' ? 'q-tab__label--on' : ''}}">首页</text>

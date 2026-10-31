@@ -13,10 +13,11 @@ Page({
     addUnit: '件',
     addScope: 'personal',
     hasFamily: false,
+    adding: false,
   },
   async onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({ value: 'list' });
+      this.getTabBar().setData({ value: 'list', hidden: false });
     }
     if (!ensureSession()) return;
     const { family } = getSession();
@@ -45,9 +46,20 @@ Page({
   },
   onAdd() {
     this.setData({ sheet: true });
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ hidden: true });
+    }
   },
   onCloseSheet() {
     this.setData({ sheet: false });
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ hidden: false });
+    }
+  },
+  onHide() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ hidden: false, sheet: false });
+    }
   },
   onAddField(e) {
     const { field } = e.currentTarget.dataset;
@@ -57,22 +69,42 @@ Page({
     this.setData({ addScope: e.currentTarget.dataset.scope });
   },
   async onKeepAdd() {
+    const name = this.data.addName.trim();
+    const quantity = Number(this.data.addQuantity);
+    if (!name) {
+      wx.showToast({ title: '请填写物品名称', icon: 'none' });
+      return;
+    }
+    if (!Number.isFinite(quantity) || quantity <= 0) {
+      wx.showToast({ title: '数量必须大于 0', icon: 'none' });
+      return;
+    }
+    if (this.data.adding) return;
+    this.setData({ adding: true });
     try {
       await callInventory('addShopping', {
-        name: this.data.addName,
-        quantity: this.data.addQuantity,
+        name,
+        quantity,
         unit: this.data.addUnit,
         scope: this.data.addScope,
       });
       this.setData({ sheet: false, addName: '', addQuantity: '1', toast: '已加入购物清单' });
+      if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+        this.getTabBar().setData({ hidden: false });
+      }
       await this.loadList();
       setTimeout(() => this.setData({ toast: '' }), 1800);
     } catch (error) {
-      wx.showToast({ title: error.message || '添加失败', icon: 'none' });
+      wx.showToast({ title: error.message || error.errMsg || '添加失败', icon: 'none' });
+    } finally {
+      this.setData({ adding: false });
     }
   },
   onViewStock() {
     this.setData({ sheet: false });
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ hidden: false });
+    }
     wx.setStorageSync('searchKeyword', '纸巾');
     wx.switchTab({ url: '/pages/search/index' });
   },

@@ -6,16 +6,24 @@ function unwrap(res) {
   throw error;
 }
 
+function callFunction(name, data) {
+  return wx.cloud.callFunction({ name, data: data || {} }).then(unwrap).catch((error) => {
+    if (error instanceof Error && error.message) throw error;
+    const message = error && (error.errMsg || error.message || error.errCode);
+    throw new Error(message || '云函数调用失败');
+  });
+}
+
 export function callLogin() {
-  return wx.cloud.callFunction({ name: 'login' }).then(unwrap);
+  return callFunction('login');
 }
 
 export function callFamily(action, data = {}) {
-  return wx.cloud.callFunction({ name: 'family', data: { action, ...data } }).then(unwrap);
+  return callFunction('family', { action, ...data });
 }
 
 export function callInventory(action, data = {}) {
-  return wx.cloud.callFunction({ name: 'inventory', data: { action, ...data } }).then(unwrap);
+  return callFunction('inventory', { action, ...data });
 }
 
 export function saveSession(payload) {
