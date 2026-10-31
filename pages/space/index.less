@@ -1,0 +1,136 @@
+.space {
+  &__plus,
+  &__scan {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32rpx;
+    background: #eef5ec;
+  }
+
+  &__plus {
+    width: 64rpx;
+    height: 64rpx;
+    border-radius: 50%;
+  }
+
+  &__scan {
+    width: 96rpx;
+    height: 96rpx;
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  &__hero {
+    margin: 0 32rpx;
+    padding: 40rpx;
+    border-radius: 48rpx;
+  }
+
+  &__hero-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__name {
+    margin-top: 24rpx;
+    font-size: 42rpx;
+    font-weight: 700;
+  }
+
+  &__sub {
+    margin-top: 8rpx;
+    font-size: 24rpx;
+    color: #668071;
+  }
+
+  &__line {
+    height: 1rpx;
+    margin-top: 32rpx;
+    background: #bdd3bc;
+  }
+
+  &__stats {
+    display: flex;
+    gap: 40rpx;
+    margin-top: 24rpx;
+    font-size: 22rpx;
+    color: #607c68;
+  }
+
+  &__num {
+    font-weight: 700;
+    color: #345340;
+  }
+
+  &__list {
+    margin-top: 48rpx;
+    padding: 0 32rpx;
+  }
+
+  &__list-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24rpx;
+  }
+
+  &__list-title {
+    font-size: 32rpx;
+    font-weight: 700;
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+    font-size: 22rpx;
+    font-weight: 600;
+    color: #4d855a;
+  }
+
+  &__private {
+    padding: 64rpx 32rpx;
+    border-radius: 32rpx;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 4rpx 12rpx rgba(48, 71, 56, 0.05);
+  }
+
+  &__private-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96rpx;
+    height: 96rpx;
+    margin: 0 auto;
+    border-radius: 32rpx;
+    background: #eee7f4;
+  }
+
+  &__private-title {
+    margin-top: 24rpx;
+    font-size: 28rpx;
+    font-weight: 700;
+  }
+
+  &__private-desc {
+    margin-top: 8rpx;
+    font-size: 22rpx;
+    color: #859188;
+  }
+
+  &__fab {
+    position: fixed;
+    right: 40rpx;
+    bottom: ~"calc(180rpx + env(safe-area-inset-bottom))";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 104rpx;
+    height: 104rpx;
+    border-radius: 50%;
+    background: #4c8b5e;
+    box-shadow: 0 12rpx 24rpx rgba(52, 112, 72, 0.28);
+  }
+}

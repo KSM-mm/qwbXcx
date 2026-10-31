@@ -16,7 +16,7 @@ Page({
       return;
     }
     if (family) {
-      wx.switchTab({ url: '/pages/my/index' });
+      wx.switchTab({ url: '/pages/home/index' });
     }
   },
 
@@ -39,7 +39,7 @@ Page({
         user: { ...session.user, currentFamilyId: result.data.family._id },
         family: result.data.family,
       });
-      wx.switchTab({ url: '/pages/my/index' });
+      wx.switchTab({ url: '/pages/home/index' });
     } catch (error) {
       this.onShowToast('#t-toast', error.message || '创建失败');
     } finally {

@@ -1,0 +1,39 @@
+<view class="q-page members">
+  <q-header title="成员与权限" />
+  <q-guide text="管理员可管理成员与所有空间；私密空间始终只对创建者自己可见。" />
+  <view class="members__note">
+    <view class="members__note-icon">
+      <q-icon name="lock" size="40" color="#73578a" />
+    </view>
+    <view>
+      <view class="members__note-title">关于私人空间</view>
+      <view class="members__note-desc">私人空间中的物品、批次和备注仅创建者本人可见，不受家庭角色影响。</view>
+    </view>
+  </view>
+
+  <view class="members__section">
+    <view class="members__title">家庭成员</view>
+    <view class="members__row" wx:for="{{members}}" wx:key="name">
+      <view class="members__avatar" style="background: {{item.color}}">{{item.initials}}</view>
+      <view class="members__body">
+        <view class="members__name">
+          {{item.name}}
+          <text wx:if="{{item.self}}" class="members__me">（我）</text>
+        </view>
+        <q-pill text="{{item.role}}" tone="{{item.tone}}" />
+      </view>
+      <q-icon name="chevron" size="34" color="#829188" />
+    </view>
+    <view class="members__invite" bindtap="onInvite">
+      <q-icon name="plus" size="34" color="#4b8559" />
+      邀请新成员
+    </view>
+
+    <view class="members__title members__title--mt">权限说明</view>
+    <view class="members__role" wx:for="{{roles}}" wx:key="role">
+      <view class="members__dot" style="background: {{item.color}}"></view>
+      <text class="members__role-name">{{item.role}}</text>
+      <text class="members__role-desc">{{item.desc}}</text>
+    </view>
+  </view>
+</view>

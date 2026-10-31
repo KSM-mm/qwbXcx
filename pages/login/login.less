@@ -1,91 +1,188 @@
+page {
+  background-color: #f7f3e9;
+}
+
 .login {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 96rpx 56rpx 96rpx;
+  background-color: #f7f3e9;
+  color: #27443a;
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+  }
+
+  &__brand-mark {
+    width: 64rpx;
+    height: 64rpx;
+    flex-shrink: 0;
+  }
+
+  &__brand-name {
+    font-size: 28rpx;
+    font-weight: 700;
+    color: #407b51;
+    line-height: 1;
+  }
+
+  &__hero {
+    position: relative;
+    height: 448rpx;
+    margin-top: 96rpx;
+    overflow: hidden;
+    border-radius: 68rpx;
+    background-color: #dcebd9;
+  }
+
+  &__hero-blob {
+    position: absolute;
+
+    &--left {
+      left: -40rpx;
+      bottom: -56rpx;
+      width: 288rpx;
+      height: 288rpx;
+      border-radius: 50%;
+      background-color: #b8d6b6;
+    }
+
+    &--cabinet {
+      right: 40rpx;
+      top: 64rpx;
+      width: 192rpx;
+      height: 224rpx;
+      border-radius: 100rpx 100rpx 0 0;
+      background-color: #ebc88f;
+    }
+
+    &--shelf {
+      right: 128rpx;
+      bottom: 72rpx;
+      width: 224rpx;
+      height: 128rpx;
+      border-radius: 32rpx;
+      background-color: #fffaf0;
+      box-shadow: 0 4rpx 16rpx rgba(48, 71, 56, 0.08);
+    }
+  }
+
+  &__hero-logo {
+    position: absolute;
+    left: 88rpx;
+    bottom: 72rpx;
+    width: 192rpx;
+    height: 192rpx;
+    z-index: 1;
+    filter: drop-shadow(0 12rpx 24rpx rgba(41, 58, 45, 0.18));
+  }
+
+  &__hero-caption {
+    position: absolute;
+    right: 80rpx;
+    top: 40rpx;
+    font-size: 22rpx;
+    font-weight: 500;
+    color: #597459;
+  }
+
+  &__copy {
+    margin-top: 72rpx;
+  }
+
   &__title {
-    color: rgba(0, 0, 0, 0.9);
-    font-size: 56rpx;
-    font-weight: 600;
-    line-height: 72rpx;
-    padding: 16rpx 32rpx 40rpx;
+    font-size: 58rpx;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    color: #29473a;
   }
 
-  &__input {
-    .input-label {
-      display: flex;
-      padding-right: 32rpx;
-      box-sizing: border-box;
-      border-right: 1rpx solid #e7e7e7;
-    }
-
-    .input-icon {
-      margin-left: 8rpx;
-    }
+  &__desc {
+    margin-top: 32rpx;
+    font-size: 28rpx;
+    line-height: 48rpx;
+    color: #718177;
   }
 
-  &__tips {
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 24rpx;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 40rpx;
-    margin: 24rpx 32rpx 32rpx;
+  &__footer {
+    margin-top: auto;
+    padding-top: 64rpx;
   }
 
   &__button {
-    margin: 0 32rpx;
-  }
-
-  &__password--forget {
-    display: flex;
-    font-size: 24rpx;
-    align-items: center;
-    margin: 32rpx;
-    line-height: 40rpx;
-  }
-
-  &__others {
-    margin: 64rpx 32rpx auto 32rpx;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 16rpx;
+    height: 104rpx;
+    border-radius: 32rpx;
+    background-color: #4c8b5e;
+    color: #ffffff;
+    font-size: 30rpx;
+    font-weight: 700;
+    box-shadow: 0 16rpx 36rpx rgba(65, 128, 82, 0.2);
 
-    &-label {
-      min-width: 96rpx;
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 24rpx;
-      line-height: 40rpx;
+    &--disabled {
+      opacity: 0.7;
     }
+  }
 
-    &-buttons {
-      flex: 1;
-      margin-left: 32rpx;
+  &__wechat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40rpx;
+    height: 40rpx;
+    border-radius: 14rpx;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 22rpx;
+    font-weight: 700;
+  }
+
+  &__agree {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12rpx;
+    margin-top: 32rpx;
+    padding: 0 8rpx;
+  }
+
+  &__check {
+    box-sizing: border-box;
+    width: 28rpx;
+    height: 28rpx;
+    margin-top: 6rpx;
+    flex-shrink: 0;
+    border: 2rpx solid #bad0bf;
+    border-radius: 50%;
+    background-color: transparent;
+
+    &--on {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-
-      .button {
-        margin: 0 !important;
-
-        &:not(:last-child) {
-          margin-right: 32rpx !important;
-        }
-      }
+      justify-content: center;
+      border-color: #4c8b5e;
+      background-color: #4c8b5e;
     }
   }
 
-  // 覆盖组件样式
-  .radio-class {
-    --td-radio-icon-size: 32rpx;
-    --td-radio-label-line-height: 40rpx;
-
-    align-items: center;
+  &__check-dot {
+    width: 12rpx;
+    height: 12rpx;
+    border-radius: 50%;
+    background-color: #fff;
   }
 
-  .radio-class-icon {
-    margin-top: 0 !important;
-  }
-
-  .radio-class-label {
-    margin-left: 8rpx !important;
-    font-size: 24rpx !important;
-    line-height: 40rpx !important;
+  &__legal {
+    font-size: 20rpx;
+    line-height: 40rpx;
+    color: #91a097;
+    text-align: left;
   }
 }

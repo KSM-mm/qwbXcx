@@ -1,0 +1,52 @@
+<view class="q-page space">
+  <q-header title="{{space.name}}">
+    <view slot="right" class="space__plus" bindtap="onAdd">
+      <q-icon name="plus" size="36" color="#468158" />
+    </view>
+  </q-header>
+  <q-guide text="{{guideText}}" />
+
+  <view class="space__hero" style="background: {{space.tint}}">
+    <view class="space__hero-row">
+      <view>
+        <q-pill text="{{pillText}}" tone="{{pillTone}}" />
+        <view class="space__name">{{space.name}}</view>
+        <view class="space__sub">{{space.sub}}</view>
+      </view>
+      <view class="space__scan" bindtap="goScan">
+        <q-icon name="scan" size="46" color="#557761" />
+      </view>
+    </view>
+    <view class="space__line"></view>
+    <view class="space__stats">
+      <text>共 <text class="space__num">{{space.count}}</text> 件物品</text>
+      <text>总计 <text class="space__num">{{space.stock}}</text> 件库存</text>
+    </view>
+  </view>
+
+  <view class="space__list">
+    <view class="space__list-head">
+      <view class="space__list-title">物品清单</view>
+      <view class="space__search" bindtap="goSearch">
+        <q-icon name="search" size="28" color="#4d855a" />
+        搜索
+      </view>
+    </view>
+    <view wx:if="{{!space.shared}}" class="space__private">
+      <view class="space__private-icon">
+        <q-icon name="lock" size="40" color="#76568b" />
+      </view>
+      <view class="space__private-title">你的私人收纳角</view>
+      <view class="space__private-desc">放心记录，其他家庭成员不可见</view>
+    </view>
+    <view wx:else>
+      <q-item wx:for="{{items}}" wx:key="id" item="{{item}}" />
+      <view style="height: 16rpx"></view>
+    </view>
+  </view>
+
+  <view class="space__fab" bindtap="onAdd">
+    <q-icon name="plus" size="50" color="#ffffff" />
+  </view>
+  <q-add-sheet show="{{sheet}}" bind:close="onCloseSheet" />
+</view>

@@ -1,7 +1,7 @@
 module.exports = [
   {
     name: 'users',
-    description: '用户。关联用文档 _id；openid 唯一',
+    description: '用户。可独立使用，也可加入一个家庭；currentFamilyId 为空表示当前未加入家庭',
     fields: {
       _id: { type: 'string', required: true, note: '自动生成' },
       openid: { type: 'string', required: true, note: '微信 OPENID' },
@@ -33,7 +33,7 @@ module.exports = [
   },
   {
     name: 'family_members',
-    description: '家庭成员。同一用户同一时间仅允许一条 status=active',
+    description: '家庭成员关系。历史关系可保留；业务层必须保证用户最多一条 active 关系，并与 users.currentFamilyId 一致',
     fields: {
       _id: { type: 'string', required: true, note: '自动生成' },
       familyId: { type: 'string', required: true, note: 'families._id' },
@@ -48,14 +48,15 @@ module.exports = [
       { name: 'idx_userId', keys: { userId: 1 } },
       { name: 'idx_family_role', keys: { familyId: 1, role: 1 } },
       { name: 'idx_user_status', keys: { userId: 1, status: 1 } },
+      { name: 'idx_family_status', keys: { familyId: 1, status: 1 } },
     ],
   },
   {
     name: 'spaces',
-    description: '空间树。shared 家庭成员默认可编辑；private 仅 owner 或 space_permissions',
+    description: '空间树。家庭共享空间必须有 familyId；个人空间必须有 ownerId，家庭成员的个人空间可同时带 familyId 作为授权范围，独立用户个人空间的 familyId 为空',
     fields: {
       _id: { type: 'string', required: true, note: '自动生成' },
-      familyId: { type: 'string', required: true, note: 'families._id' },
+      familyId: { type: 'string', required: false, note: 'families._id；家庭共享空间必填，家庭成员个人空间可填，独立用户个人空间为空' },
       parentId: { type: 'string', required: false, note: '父空间 _id，根节点不设或空串' },
       name: { type: 'string', required: true },
       type: {
@@ -64,8 +65,13 @@ module.exports = [
         note: 'room | cabinet | box | layer | grid | other',
         default: 'other',
       },
-      visibility: { type: 'string', required: true, note: 'shared | private', default: 'shared' },
-      ownerId: { type: 'string', required: false, note: 'private 时必填，users._id' },
+      visibility: {
+        type: 'string',
+        required: true,
+        note: 'shared | private | selected；shared=家庭成员可访问，private=仅 ownerId，selected=ownerId 与 space_permissions 授权成员',
+        default: 'shared',
+      },
+      ownerId: { type: 'string', required: false, note: '个人空间必填，users._id；家庭共享空间为空' },
       photoUrl: { type: 'string', required: false, note: '云存储 fileID' },
       capacityNote: { type: 'string', required: false },
       sortOrder: { type: 'number', required: true, default: 0 },
@@ -76,29 +82,36 @@ module.exports = [
     },
     indexes: [
       { name: 'idx_family_parent', keys: { familyId: 1, parentId: 1 } },
+      { name: 'idx_owner_parent', keys: { ownerId: 1, parentId: 1 } },
       { name: 'idx_family_deleted', keys: { familyId: 1, deletedAt: 1 } },
       { name: 'idx_ownerId', keys: { ownerId: 1 } },
     ],
   },
   {
     name: 'space_permissions',
-    description: '空间权限，主要用于私人空间授权',
+    description: '个人空间的成员级授权；仅在 visibility=selected 时生效，授权对象必须是空间所属家庭的当前成员',
     fields: {
       _id: { type: 'string', required: true, note: '自动生成' },
       spaceId: { type: 'string', required: true, note: 'spaces._id' },
       userId: { type: 'string', required: true, note: 'users._id' },
       permission: { type: 'string', required: true, note: 'edit | view', default: 'view' },
+      status: { type: 'string', required: true, note: 'active | revoked', default: 'active' },
+      grantedBy: { type: 'string', required: true, note: '授权人 users._id，通常为个人空间 ownerId' },
       createdAt: { type: 'date', required: true },
       updatedAt: { type: 'date', required: true },
     },
-    indexes: [{ name: 'uk_space_user', keys: { spaceId: 1, userId: 1 }, unique: true }],
+    indexes: [
+      { name: 'uk_space_user', keys: { spaceId: 1, userId: 1 }, unique: true },
+      { name: 'idx_user_status', keys: { userId: 1, status: 1 } },
+    ],
   },
   {
     name: 'items',
-    description: '物品主数据，不绑定位置',
+    description: '物品主数据，不绑定位置；家庭物品归 familyId，个人物品归 ownerId，二者必须且只能设置一个',
     fields: {
       _id: { type: 'string', required: true, note: '自动生成' },
-      familyId: { type: 'string', required: true, note: 'families._id' },
+      familyId: { type: 'string', required: false, note: '家庭物品的归属 families._id；与 ownerId 二选一' },
+      ownerId: { type: 'string', required: false, note: '个人物品的归属 users._id；与 familyId 二选一' },
       name: { type: 'string', required: true },
       category: { type: 'string', required: false },
       barcode: { type: 'string', required: false },
@@ -112,7 +125,9 @@ module.exports = [
     },
     indexes: [
       { name: 'idx_family_name', keys: { familyId: 1, name: 1 } },
-      { name: 'idx_barcode', keys: { barcode: 1 } },
+      { name: 'idx_owner_name', keys: { ownerId: 1, name: 1 } },
+      { name: 'idx_family_barcode', keys: { familyId: 1, barcode: 1 } },
+      { name: 'idx_owner_barcode', keys: { ownerId: 1, barcode: 1 } },
       { name: 'idx_family_deleted', keys: { familyId: 1, deletedAt: 1 } },
     ],
   },
@@ -175,10 +190,11 @@ module.exports = [
   },
   {
     name: 'shopping_items',
-    description: '购物清单。spaceId 可空；bought 不自动入库，确认后写 convertedBatchId',
+    description: '购物清单。家庭清单归 familyId，个人清单归 ownerId，二者必须且只能设置一个；spaceId 可空；bought 不自动入库，确认后写 convertedBatchId',
     fields: {
       _id: { type: 'string', required: true, note: '自动生成' },
-      familyId: { type: 'string', required: true, note: 'families._id' },
+      familyId: { type: 'string', required: false, note: '家庭清单归属 families._id；与 ownerId 二选一' },
+      ownerId: { type: 'string', required: false, note: '个人清单归属 users._id；与 familyId 二选一' },
       spaceId: { type: 'string', required: false, note: '计划放回的空间，空=家庭公共清单' },
       name: { type: 'string', required: true },
       quantity: { type: 'number', required: true, default: 1 },
@@ -199,6 +215,7 @@ module.exports = [
     },
     indexes: [
       { name: 'idx_family_status', keys: { familyId: 1, status: 1 } },
+      { name: 'idx_owner_status', keys: { ownerId: 1, status: 1 } },
       { name: 'idx_spaceId', keys: { spaceId: 1 } },
       { name: 'idx_relatedItemId', keys: { relatedItemId: 1 } },
       { name: 'idx_convertedBatchId', keys: { convertedBatchId: 1 } },

@@ -1,0 +1,11 @@
+<view class="q-header {{light ? 'q-header--light' : ''}}" style="padding-top: {{statusBarHeight}}px">
+  <view class="q-header__bar">
+    <view class="q-header__back" bindtap="onBack">
+      <q-icon wx:if="{{showBack}}" name="{{light ? 'close' : 'arrow'}}" size="40" color="{{light ? '#ffffff' : '#315a48'}}" />
+    </view>
+    <view class="q-header__title">{{title}}</view>
+    <view class="q-header__right">
+      <slot name="right"></slot>
+    </view>
+  </view>
+</view>

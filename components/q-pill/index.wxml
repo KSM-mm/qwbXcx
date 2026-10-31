@@ -1,0 +1,1 @@
+<view class="q-pill q-pill--{{tone}}">{{text}}</view>

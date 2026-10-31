@@ -1,0 +1,10 @@
+<view class="q-guide">
+  <view class="q-guide__trigger" bindtap="onToggle">
+    <view class="q-guide__i">i</view>
+    <text>本页说明</text>
+    <view class="q-guide__chevron {{open ? 'q-guide__chevron--open' : ''}}">
+      <q-icon name="chevron" size="26" color="#71907d" />
+    </view>
+  </view>
+  <view wx:if="{{open}}" class="q-guide__body">{{text}}</view>
+</view>

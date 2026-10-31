@@ -1,0 +1,11 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "q-icon": "/components/q-icon/index",
+    "q-header": "/components/q-header/index",
+    "q-guide": "/components/q-guide/index",
+    "q-pill": "/components/q-pill/index",
+    "q-item": "/components/q-item/index",
+    "q-add-sheet": "/components/q-add-sheet/index"
+  }
+}

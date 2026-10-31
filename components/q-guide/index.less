@@ -1,0 +1,42 @@
+.q-guide {
+  margin: 0 32rpx 24rpx;
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+    font-size: 22rpx;
+    font-weight: 500;
+    color: #71907d;
+  }
+
+  &__i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32rpx;
+    height: 32rpx;
+    border: 2rpx solid #bad0bf;
+    border-radius: 50%;
+    font-size: 20rpx;
+  }
+
+  &__chevron {
+    transform: rotate(0);
+    transition: transform 0.2s;
+
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__body {
+    margin-top: 16rpx;
+    padding: 16rpx 24rpx;
+    border-radius: 24rpx;
+    background: #edf5ec;
+    font-size: 22rpx;
+    line-height: 40rpx;
+    color: #567263;
+  }
+}

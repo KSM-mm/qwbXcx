@@ -1,82 +1,47 @@
-import Message from 'tdesign-miniprogram/message/index';
-import request from '~/api/request';
-
-// 获取应用实例
-// const app = getApp()
+import { getSpaces } from '~/utils/qi-data';
+import { ensureSession } from '~/utils/auth';
 
 Page({
   data: {
-    enable: false,
-    swiperList: [],
-    cardInfo: [],
-    // 发布
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
+    spaces: [],
+    statusBarHeight: 20,
+    familyName: '',
   },
-  // 生命周期
-  async onReady() {
-    const [cardRes, swiperRes] = await Promise.all([
-      request('/home/cards').then((res) => res.data),
-      request('/home/swipers').then((res) => res.data),
-    ]);
-
+  onLoad() {
+    const info = wx.getWindowInfo ? wx.getWindowInfo() : wx.getSystemInfoSync();
     this.setData({
-      cardInfo: cardRes.data,
-      focusCardInfo: cardRes.data.slice(0, 3),
-      swiperList: swiperRes.data,
+      spaces: getSpaces(),
+      statusBarHeight: info.statusBarHeight || 20,
     });
   },
-  onLoad(option) {
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true,
-      });
+  onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ value: 'home' });
     }
-    if (option.oper) {
-      let content = '';
-      if (option.oper === 'release') {
-        content = '发布成功';
-      } else if (option.oper === 'save') {
-        content = '保存成功';
-      }
-      this.showOperMsg(content);
-    }
+    const session = ensureSession();
+    if (!session) return;
+    this.setData({ familyName: session.family.name });
   },
-  onRefresh() {
-    this.refresh();
+  goFamily() {
+    wx.navigateTo({ url: '/pages/family/index' });
   },
-  async refresh() {
-    this.setData({
-      enable: true,
-    });
-    const [cardRes, swiperRes] = await Promise.all([
-      request('/home/cards').then((res) => res.data),
-      request('/home/swipers').then((res) => res.data),
-    ]);
-
-    setTimeout(() => {
-      this.setData({
-        enable: false,
-        cardInfo: cardRes.data,
-        swiperList: swiperRes.data,
-      });
-    }, 1500);
+  goMembers() {
+    wx.navigateTo({ url: '/pages/members/index' });
   },
-  showOperMsg(content) {
-    Message.success({
-      context: this,
-      offset: [120, 32],
-      duration: 4000,
-      content,
-    });
+  goExpiry() {
+    wx.switchTab({ url: '/pages/expiry/index' });
   },
-  goRelease() {
-    wx.navigateTo({
-      url: '/pages/release/index',
-    });
+  goSpaceForm() {
+    wx.navigateTo({ url: '/pages/space/form' });
+  },
+  goSpace(e) {
+    const { id } = e.currentTarget.dataset;
+    wx.navigateTo({ url: `/pages/space/index?id=${id}` });
+  },
+  goScan() {
+    wx.navigateTo({ url: '/pages/scan/index' });
+  },
+  goVoice() {
+    wx.navigateTo({ url: '/pages/voice/index?mode=add' });
   },
 });

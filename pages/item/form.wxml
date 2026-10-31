@@ -1,0 +1,17 @@
+<view class="q-page item-form">
+  <q-header title="确认物品" />
+  <q-guide text="语音内容已整理为可编辑字段，确认无误后保存到当前空间。" />
+  <view class="item-form__voice">
+    <q-icon name="voice" size="28" color="#638171" />
+    <text>识别结果：两盒燕麦奶放到厨房，6 月 25 日到期</text>
+  </view>
+  <view class="item-form__row" wx:for="{{fields}}" wx:key="label">
+    <text class="item-form__label">{{item.label}}</text>
+    <view class="item-form__value">
+      {{item.value}}
+      <q-icon name="chevron" size="30" color="#829188" />
+    </view>
+  </view>
+  <view class="item-form__save" bindtap="onSave">确认并保存</view>
+  <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>
+</view>

@@ -46,7 +46,7 @@ Page({
     if (res.success) {
       await wx.setStorageSync('access_token', res.data.token);
       wx.switchTab({
-        url: `/pages/my/index`,
+        url: `/pages/home/index`,
       });
     }
   },

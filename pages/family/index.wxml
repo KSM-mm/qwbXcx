@@ -1,0 +1,57 @@
+<t-toast id="t-toast" />
+<view class="q-page family">
+  <q-header title="家庭管理" />
+
+  <view class="family__hero">
+    <view class="family__hero-top">
+      <view>
+        <q-pill text="{{roleLabel}}" />
+        <view class="family__name">{{familyName}}</view>
+        <view class="family__slogan">一起把生活收纳得井井有条</view>
+      </view>
+    </view>
+    <view class="family__avatars">
+      <view class="family__avatar" style="background:#f2c5a5">我</view>
+      <view class="family__avatar family__avatar--add" bindtap="goMembers">
+        <q-icon name="plus" size="30" color="#5f806a" />
+      </view>
+      <text class="family__count">{{memberCount}} 位成员</text>
+    </view>
+  </view>
+
+  <view class="family__section">
+    <view class="family__section-title">共享空间</view>
+    <view class="family__space" wx:for="{{spaces}}" wx:key="id" bindtap="goSpace" data-id="{{item.id}}">
+      <view class="family__space-icon" style="background: {{item.tint}}">
+        <q-icon name="{{item.icon}}" size="46" color="#547b60" />
+      </view>
+      <view class="family__space-body">
+        <view class="family__space-name">
+          {{item.name}}
+          <q-icon wx:if="{{!item.shared}}" name="lock" size="26" color="#30483d" />
+        </view>
+        <view class="family__space-sub">{{item.sub}}</view>
+      </view>
+      <q-icon name="chevron" size="34" color="#829188" />
+    </view>
+  </view>
+
+  <view class="family__actions">
+    <view class="family__invite" bindtap="goInvite">
+      <view class="family__invite-icon">
+        <q-icon name="scan" size="40" color="#bf7331" />
+      </view>
+      <view class="family__invite-body">
+        <view class="family__invite-name">邀请家人加入</view>
+        <view class="family__invite-sub">邀请功能暂未开放</view>
+      </view>
+      <q-icon name="chevron" size="34" color="#829188" />
+    </view>
+    <view class="family__create" bindtap="goSpaceForm">
+      <q-icon name="plus" size="36" color="#4c855b" />
+      <text>新建家庭空间</text>
+    </view>
+    <view wx:if="{{family && !isOwner}}" class="family__danger" bindtap="onLeaveFamily">退出家庭</view>
+    <view wx:if="{{isOwner}}" class="family__danger" bindtap="onDissolveFamily">解散家庭</view>
+  </view>
+</view>

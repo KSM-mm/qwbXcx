@@ -1,0 +1,14 @@
+<view class="q-item" bindtap="onTap">
+  <view class="q-item__icon q-item__icon--{{item.iconBg}}">
+    <q-icon name="{{item.icon}}" size="40" color="{{item.iconColor}}" />
+  </view>
+  <view class="q-item__body">
+    <view class="q-item__name">
+      {{item.name}}
+      <text class="q-item__amount">· {{item.amount}}</text>
+    </view>
+    <view class="q-item__place">{{item.place}}</view>
+  </view>
+  <q-pill wx:if="{{item.level}}" text="{{item.expiry}}" tone="{{item.tone}}" />
+  <text wx:else class="q-item__expiry">{{item.expiry}}</text>
+</view>

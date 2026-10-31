@@ -1,10 +1,42 @@
-@import '/variable.less';
+.q-tab {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  height: ~"calc(146rpx + env(safe-area-inset-bottom))";
+  padding: 16rpx 24rpx ~"env(safe-area-inset-bottom)";
+  border-top: 1rpx solid #e7ebe5;
+  background: rgba(255, 254, 250, 0.95);
+  box-sizing: border-box;
 
-.custom-tab-bar {
-  --td-tab-bar-height: @tab-bar-height;
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8rpx;
+    width: 96rpx;
+    padding-top: 8rpx;
+  }
 
-  &-item {
-    margin: 0;
-    padding: 16rpx 24rpx;
+  &__label {
+    font-size: 20rpx;
+    color: #87958d;
+
+    &--on {
+      color: #3d7850;
+      font-weight: 600;
+    }
+  }
+
+  &__add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 112rpx;
+    height: 112rpx;
+    margin-top: -40rpx;
+    border-radius: 50%;
+    background: #4c8b5e;
+    box-shadow: 0 12rpx 32rpx rgba(52, 112, 72, 0.32);
   }
 }

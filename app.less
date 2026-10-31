@@ -1,9 +1,33 @@
-/**app.wxss**/
 page {
-  background-color: #f3f3f3;
+  background-color: #f8f6ef;
+  color: #27443a;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
 }
 
 .page {
-  height: 100vh;
-  background-color: #fff;
+  min-height: 100vh;
+  background-color: #f8f6ef;
+}
+
+.q-page {
+  min-height: 100vh;
+  padding-bottom: ~"calc(180rpx + env(safe-area-inset-bottom))";
+  background: #f8f6ef;
+  box-sizing: border-box;
+}
+
+.q-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 200rpx;
+  z-index: 50;
+  transform: translateX(-50%);
+  padding: 20rpx 32rpx;
+  border-radius: 999rpx;
+  background: #29483b;
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 8rpx 24rpx rgba(41, 58, 45, 0.18);
 }

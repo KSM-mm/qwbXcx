@@ -1,0 +1,47 @@
+<view class="q-page voice">
+  <q-header title="{{mode === 'add' ? '语音录入' : '语音查询'}}" />
+  <view class="voice__tip">
+    <view class="voice__tip-icon">
+      <q-icon name="voice" size="36" color="#4d855b" />
+    </view>
+    <view>
+      <view class="voice__tip-title">{{mode === 'add' ? '说出物品、数量和位置' : '直接问问家里有什么'}}</view>
+      <view class="voice__tip-desc">{{mode === 'add' ? '例如：“把两盒燕麦奶放到厨房，6 月 25 日到期”' : '例如：“纸巾还剩几包？”'}}</view>
+    </view>
+  </view>
+
+  <view class="voice__stage">
+    <block wx:if="{{voiceState === 'failed'}}">
+      <view class="voice__fail">
+        <q-icon name="mic" size="68" color="#c45c47" />
+      </view>
+      <view class="voice__title">没有听清楚</view>
+      <view class="voice__desc">环境有些嘈杂，请再说一次或手动输入</view>
+    </block>
+    <block wx:else>
+      <view class="voice__mic">
+        <view wx:if="{{voiceState === 'recording'}}" class="voice__ring"></view>
+        <q-icon name="mic" size="78" color="#4c8b5e" />
+      </view>
+      <view class="voice__waves">
+        <view class="voice__bar {{voiceState === 'recording' ? 'voice__bar--on' : ''}}" wx:for="{{waves}}" wx:key="index" style="height: {{item}}rpx"></view>
+      </view>
+      <view class="voice__title">{{statusText}}</view>
+      <view class="voice__desc">{{voiceState === 'recording' ? '松开即可完成录入' : '支持物品记录与库存查询'}}</view>
+    </block>
+  </view>
+
+  <view class="voice__footer">
+    <view class="voice__modes">
+      <view class="voice__mode {{mode === 'add' ? 'voice__mode--on' : ''}}" bindtap="setAdd">录入物品</view>
+      <view class="voice__mode {{mode === 'query' ? 'voice__mode--on' : ''}}" bindtap="setQuery">查询库存</view>
+    </view>
+    <view class="voice__btn" bindtap="onMic">
+      <q-icon name="{{voiceState === 'recording' ? 'check' : 'mic'}}" size="54" color="#ffffff" />
+    </view>
+    <view class="voice__links">
+      <text bindtap="onFail">模拟识别失败</text>
+      <text class="voice__manual" bindtap="goForm">手动输入</text>
+    </view>
+  </view>
+</view>

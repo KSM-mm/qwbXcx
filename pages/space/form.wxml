@@ -1,0 +1,45 @@
+<view class="q-page space-form">
+  <q-header title="新建空间" />
+  <q-guide text="设置名称、类型与共享范围后，空间会出现在家庭首页；私密空间仅自己可见。" />
+
+  <view class="space-form__body">
+    <view class="space-form__label">空间名称</view>
+    <input class="space-form__input" value="{{name}}" bindinput="onName" />
+
+    <view class="space-form__label">空间类型</view>
+    <view class="space-form__types">
+      <view
+        class="space-form__type {{typeIndex === index ? 'space-form__type--on' : ''}}"
+        wx:for="{{types}}"
+        wx:key="label"
+        data-index="{{index}}"
+        bindtap="onType"
+      >
+        <q-icon name="{{item.icon}}" size="40" color="{{typeIndex === index ? '#417c51' : '#75867c'}}" />
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+
+    <view class="space-form__label">可见范围</view>
+    <view class="space-form__scope">
+      家庭成员均可查看
+      <q-icon name="chevron" size="34" color="#829188" />
+    </view>
+
+    <view class="space-form__private">
+      <view class="space-form__private-icon">
+        <q-icon name="lock" size="36" color="#76568b" />
+      </view>
+      <view class="space-form__private-body">
+        <view class="space-form__private-title">设为私人空间</view>
+        <view class="space-form__private-desc">仅你自己可查看和编辑</view>
+      </view>
+      <view class="space-form__switch {{privateOn ? 'space-form__switch--on' : ''}}" bindtap="onTogglePrivate">
+        <view class="space-form__knob"></view>
+      </view>
+    </view>
+
+    <view class="space-form__save" bindtap="onSave">保存空间</view>
+  </view>
+  <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>
+</view>

@@ -1,0 +1,27 @@
+<view class="q-page scan-confirm">
+  <q-header title="识别空间" />
+  <view class="scan-confirm__ok">
+    <view class="scan-confirm__check">
+      <q-icon name="check" size="70" color="#4d895b" />
+    </view>
+    <view class="scan-confirm__title">发现一个空间</view>
+    <view class="scan-confirm__desc">已通过家庭空间码校验</view>
+  </view>
+  <view class="scan-confirm__card">
+    <view class="scan-confirm__row">
+      <view class="scan-confirm__icon">
+        <q-icon name="box" size="52" color="#547b60" />
+      </view>
+      <view>
+        <view class="scan-confirm__name">厨房</view>
+        <view class="scan-confirm__meta">我们的小家 · 23 件物品</view>
+      </view>
+    </view>
+    <view class="scan-confirm__key">
+      <q-icon name="key" size="28" color="#668070" />
+      <text>空间码来自可信家庭成员：林安</text>
+    </view>
+  </view>
+  <view class="scan-confirm__btn" bindtap="onEnter">进入这个空间</view>
+  <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>
+</view>

@@ -1,0 +1,39 @@
+<view class="scan">
+  <q-header title="扫描空间码" light />
+  <view class="scan__body">
+    <view class="scan__hint">将空间二维码放入框内，即可快速进入</view>
+    <view class="scan__frame">
+      <view class="scan__inner"></view>
+      <view class="scan__line"></view>
+      <view wx:if="{{scanState === 'loading'}}" class="scan__loading">
+        <view class="scan__spinner"></view>
+      </view>
+    </view>
+    <view wx:if="{{scanState === 'failed'}}" class="scan__fail">
+      <view class="scan__fail-title">没有识别到空间码</view>
+      <view class="scan__fail-desc">请确保二维码清晰完整，或手动选择空间。</view>
+      <view class="scan__fail-actions">
+        <view class="scan__ghost" bindtap="onRetry">重新扫描</view>
+        <view class="scan__white" bindtap="onManual">手动选择</view>
+      </view>
+    </view>
+    <view class="scan__tools">
+      <view class="scan__tool">
+        <view class="scan__tool-icon">
+          <q-icon name="flash" size="36" color="#ffffff" />
+        </view>
+        手电筒
+      </view>
+      <view class="scan__tool">
+        <view class="scan__tool-icon">
+          <q-icon name="image" size="36" color="#ffffff" />
+        </view>
+        相册
+      </view>
+    </view>
+    <view class="scan__demo">
+      <view class="scan__ok" bindtap="onReadySuccess">模拟扫码成功</view>
+      <view class="scan__bad" bindtap="onFail">模拟失败</view>
+    </view>
+  </view>
+</view>

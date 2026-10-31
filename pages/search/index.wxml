@@ -1,65 +1,45 @@
-<t-navbar title="搜索" left-arrow />
-<view class="page search-page">
-  <view class="search-input">
-    <t-search
-      t-class-input-container="t-class__input-container"
-      t-class-input="t-search__input"
-      value="{{searchValue}}"
-      leftIcon="search"
-      action="取消"
-      shape="round"
-      placeholder="请搜索你想要的内容"
-      bind:submit="handleSubmit"
-      bind:action-click="actionHandle"
-      focus
-    ></t-search>
-  </view>
-  <view class="search-wrap">
-    <view class="history-wrap">
-      <view class="search-header">
-        <text class="search-title">历史记录</text>
-        <t-icon name="delete" size="large" class="search-clear" bind:click="handleClearHistory" />
-      </view>
-      <view class="search-content">
-        <view
-          class="search-item"
-          hover-class="hover-history-item"
-          wx:for="{{historyWords}}"
-          bind:tap="handleHistoryTap"
-          bindlongpress="deleteCurr"
-          data-index="{{index}}"
-          wx:key="*this"
-        >
-          <t-tag class="history-item margin-12" max-width="{{343}}" variant="light">{{item}}</t-tag>
-        </view>
-      </view>
+<view class="q-page search" style="padding-top: {{statusBarHeight}}px">
+  <view class="search__bar">
+    <view class="search__back" bindtap="onBack">
+      <q-icon name="arrow" size="40" color="#315a48" />
     </view>
-    <view class="popular-wrap">
-      <view class="search-header">
-        <text class="search-title">搜索发现</text>
-      </view>
-      <view class="search-content">
-        <view
-          class="search-item"
-          hover-class="hover-history-item"
-          wx:for="{{popularWords}}"
-          bind:tap="handlePopularTap"
-          data-index="{{index}}"
-          wx:key="*this"
-        >
-          <t-tag class="popular-item margin-12" max-width="{{343}}" variant="light" icon="search"> {{item}} </t-tag>
-        </view>
+    <view class="search__input-wrap">
+      <q-icon name="search" size="36" color="#77877d" />
+      <input class="search__input" value="{{search}}" placeholder="搜物品、位置或分类" bindinput="onInput" focus />
+      <view wx:if="{{search}}" bindtap="onClear">
+        <q-icon name="close" size="30" color="#77877d" />
       </view>
     </view>
   </view>
-  <t-dialog
-    visible="{{dialogShow}}"
-    content="{{dialog.message}}"
-    bindconfirm="confirm"
-    bind:close="close"
-    confirm-btn="确定"
-    cancel-btn="{{dialog.showCancelButton ? '取消' : null}}"
-    t-class-confirm="dialog__button-confirm"
-    t-class-cancel="dialog__button-cancel"
-  />
+  <q-guide text="可按物品、位置或分类查询；语音查询会自动把识别结果带入搜索框。" />
+
+  <view wx:if="{{!search}}" class="search__idle">
+    <view class="search__title">最近搜索</view>
+    <view class="search__chips">
+      <view class="search__chip" wx:for="{{history}}" wx:key="*this" data-value="{{item}}" bindtap="onHistory">{{item}}</view>
+    </view>
+    <view class="search__title search__title--mt">试试这样搜</view>
+    <view class="search__hint" wx:for="{{hints}}" wx:key="*this">
+      <q-icon name="voice" size="34" color="#658070" />
+      {{item}}
+    </view>
+  </view>
+
+  <view wx:else class="search__result">
+    <view class="search__filters">
+      <q-pill text="全部 {{results.length}}" />
+      <q-pill text="食品" tone="gray" />
+      <q-pill text="日用品" tone="gray" />
+    </view>
+    <view wx:if="{{results.length}}">
+      <q-item wx:for="{{results}}" wx:key="id" item="{{item}}" />
+    </view>
+    <view wx:else class="search__empty">
+      <view class="search__empty-icon">
+        <q-icon name="search" size="50" color="#84948a" />
+      </view>
+      <view class="search__empty-title">没有找到“{{search}}”</view>
+      <view class="search__empty-desc">换个关键词，或去其他空间看看</view>
+    </view>
+  </view>
 </view>

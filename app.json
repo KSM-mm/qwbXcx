@@ -1,24 +1,14 @@
 {
-  "pages": ["pages/home/index", "pages/message/index", "pages/my/index"],
+  "pages": [
+    "pages/home/index",
+    "pages/search/index",
+    "pages/expiry/index",
+    "pages/list/index"
+  ],
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast"
   },
   "subpackages": [
-    {
-      "root": "pages/search",
-      "name": "search",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/my/info-edit",
-      "name": "edit",
-      "pages": ["index"]
-    },
-    {
-      "root": "pages/chat",
-      "name": "chat",
-      "pages": ["index"]
-    },
     {
       "root": "pages/login",
       "name": "login",
@@ -27,7 +17,42 @@
     {
       "root": "pages/family",
       "name": "family",
-      "pages": ["create"]
+      "pages": ["index", "create"]
+    },
+    {
+      "root": "pages/space",
+      "name": "space",
+      "pages": ["index", "form"]
+    },
+    {
+      "root": "pages/scan",
+      "name": "scan",
+      "pages": ["index", "confirm"]
+    },
+    {
+      "root": "pages/voice",
+      "name": "voice",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/item",
+      "name": "item",
+      "pages": ["index", "form"]
+    },
+    {
+      "root": "pages/members",
+      "name": "members",
+      "pages": ["index"]
+    },
+    {
+      "root": "pages/my",
+      "name": "my",
+      "pages": ["index", "info-edit/index"]
+    },
+    {
+      "root": "pages/chat",
+      "name": "chat",
+      "pages": ["index"]
     },
     {
       "root": "pages/loginCode",
@@ -52,24 +77,32 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#f8f6ef",
+    "navigationBarTitleText": "栖物簿",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f8f6ef"
   },
   "tabBar": {
     "custom": true,
+    "color": "#87958d",
+    "selectedColor": "#3d7850",
+    "backgroundColor": "#fffefa",
     "list": [
       {
         "pagePath": "pages/home/index",
         "text": "首页"
       },
       {
-        "pagePath": "pages/message/index",
-        "text": "消息"
+        "pagePath": "pages/search/index",
+        "text": "搜索"
       },
       {
-        "pagePath": "pages/my/index",
-        "text": "我的"
+        "pagePath": "pages/expiry/index",
+        "text": "临期"
+      },
+      {
+        "pagePath": "pages/list/index",
+        "text": "清单"
       }
     ]
   },

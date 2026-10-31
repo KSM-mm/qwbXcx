@@ -1,9 +1,7 @@
 {
   "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
   "usingComponents": {
-    "t-navbar": "tdesign-miniprogram/navbar/navbar",
-    "t-input": "tdesign-miniprogram/input/input",
-    "t-button": "tdesign-miniprogram/button/button",
     "t-toast": "tdesign-miniprogram/toast/toast"
   }
 }

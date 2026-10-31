@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "q-icon": "/components/q-icon/index",
+    "q-header": "/components/q-header/index",
+    "q-guide": "/components/q-guide/index"
+  }
+}

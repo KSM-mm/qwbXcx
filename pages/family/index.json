@@ -1,0 +1,10 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "q-icon": "/components/q-icon/index",
+    "q-header": "/components/q-header/index",
+    "q-guide": "/components/q-guide/index",
+    "q-pill": "/components/q-pill/index",
+    "t-toast": "tdesign-miniprogram/toast/toast"
+  }
+}

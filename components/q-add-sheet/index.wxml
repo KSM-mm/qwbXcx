@@ -1,0 +1,33 @@
+<view wx:if="{{show}}" class="q-sheet" bindtap="onClose">
+  <view class="q-sheet__panel" catchtap="noop">
+    <view class="q-sheet__handle"></view>
+    <view class="q-sheet__title">添加物品</view>
+    <view class="q-sheet__row" bindtap="goScan">
+      <view class="q-sheet__icon">
+        <q-icon name="scan" size="40" color="#4c8b5e" />
+      </view>
+      <view>
+        <view class="q-sheet__name">扫码添加</view>
+        <view class="q-sheet__sub">扫描物品或空间二维码</view>
+      </view>
+    </view>
+    <view class="q-sheet__row" bindtap="goVoice">
+      <view class="q-sheet__icon">
+        <q-icon name="mic" size="40" color="#4c8b5e" />
+      </view>
+      <view>
+        <view class="q-sheet__name">语音录入</view>
+        <view class="q-sheet__sub">动动嘴，信息自动整理</view>
+      </view>
+    </view>
+    <view class="q-sheet__row" bindtap="goForm">
+      <view class="q-sheet__icon">
+        <q-icon name="edit" size="40" color="#4c8b5e" />
+      </view>
+      <view>
+        <view class="q-sheet__name">手动添加</view>
+        <view class="q-sheet__sub">逐项填写物品信息</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,48 +1,80 @@
-<nav nav-type="search" />
-<view class="home-container">
-  <view class="home-content">
-    <t-tabs defaultValue="recommend">
-      <t-tab-panel label="推荐" value="recommend">
-        <t-pull-down-refresh
-          value="{{enable}}"
-          bind:refresh="onRefresh"
-          loadingTexts="{{['下拉刷新', '松手刷新', '正在刷新', '刷新完成']}}"
-        >
-          <view class="home-card-list">
-            <t-swiper
-              list="{{swiperList}}"
-              navigation="{{ { type: 'dots-bar' } }}"
-              height="488rpx"
-              style="width: 340rpx"
-            />
-            <card
-              wx:for="{{cardInfo}}"
-              wx:key="index"
-              desc="{{item.desc}}"
-              url="{{item.url}}"
-              tags="{{item.tags}}"
-            />
-          </view>
-        </t-pull-down-refresh>
-      </t-tab-panel>
-      <t-tab-panel label="我的关注" value="follow">
-        <view class="home-card-list">
-          <card
-            wx:for="{{focusCardInfo}}"
-            wx:key="index"
-            desc="{{item.desc}}"
-            url="{{item.url}}"
-            tags="{{item.tags}}"
-          />
+<view class="q-page home" style="padding-top: {{statusBarHeight}}px">
+  <view class="home__top">
+    <view class="home__family" bindtap="goFamily">
+      <view class="home__family-icon">
+        <q-icon name="users" size="38" color="#4b8559" />
+      </view>
+      <view>
+        <view class="home__family-label">当前家庭</view>
+        <view class="home__family-name">
+          {{familyName}}
+          <q-icon name="chevron" size="30" color="#29483b" />
         </view>
-      </t-tab-panel>
-    </t-tabs>
+      </view>
+    </view>
+    <view class="home__setting" bindtap="goMembers">
+      <q-icon name="settings" size="38" color="#5e7667" />
+    </view>
+  </view>
+
+  <!-- <q-guide text="家庭首页汇总空间、临期物品和快捷操作；点击空间卡片即可查看所在物品。" /> -->
+
+  <view class="home__alert">
+    <view class="home__alert-icon">
+      <q-icon name="bell" size="40" color="#b56828" />
+    </view>
+    <view class="home__alert-body">
+      <view class="home__alert-title">2 件物品即将到期</view>
+      <view class="home__alert-desc">鲜牛奶今天到期，意面将在 3 天后到期</view>
+    </view>
+    <view class="home__alert-link" bindtap="goExpiry">查看</view>
+  </view>
+
+  <view class="home__section">
+    <view class="home__section-head">
+      <view class="home__section-title">我的空间</view>
+      <view class="home__section-action" bindtap="goSpaceForm">管理空间</view>
+    </view>
+    <view class="home__spaces">
+      <view
+        class="home__space"
+        wx:for="{{spaces}}"
+        wx:key="id"
+        style="background: {{item.tint}}"
+        bindtap="goSpace"
+        data-id="{{item.id}}"
+      >
+        <view class="home__space-blob" style="background: {{item.image}}"></view>
+        <view class="home__space-icon">
+          <q-icon name="{{item.icon}}" size="36" color="#527760" />
+        </view>
+        <view class="home__space-name">{{item.name}}</view>
+        <view class="home__space-sub">{{item.sub}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="home__section">
+    <view class="home__section-title">快捷记录</view>
+    <view class="home__quick">
+      <view class="home__quick-card" bindtap="goScan">
+        <view class="home__quick-icon home__quick-icon--scan">
+          <q-icon name="scan" size="40" color="#4c8b5e" />
+        </view>
+        <view>
+          <view class="home__quick-name">扫空间码</view>
+          <view class="home__quick-sub">快速进入空间</view>
+        </view>
+      </view>
+      <view class="home__quick-card" bindtap="goVoice">
+        <view class="home__quick-icon home__quick-icon--mic">
+          <q-icon name="mic" size="40" color="#c27835" />
+        </view>
+        <view>
+          <view class="home__quick-name">语音记一记</view>
+          <view class="home__quick-sub">动口不动手</view>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
-
-<view class="home-release">
-  <t-button theme="primary" size="large" icon="add" shape="round" bindtap="goRelease">
-    发布
-  </t-button>
-</view>
-<t-message id="t-message" />

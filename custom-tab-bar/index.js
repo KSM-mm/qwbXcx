@@ -1,57 +1,42 @@
-const app = getApp();
-
 Component({
   data: {
-    value: '', // 初始值设置为空，避免第一次加载时闪烁
-    unreadNum: 0, // 未读消息数量
+    value: 'home',
+    sheet: false,
     list: [
-      {
-        icon: 'home',
-        value: 'index',
-        label: '首页',
-      },
-      {
-        icon: 'chat',
-        value: 'notice',
-        label: '消息',
-      },
-      {
-        icon: 'user',
-        value: 'my',
-        label: '我的',
-      },
+      { icon: 'home', value: 'home', label: '首页', url: '/pages/home/index' },
+      { icon: 'search', value: 'search', label: '搜索', url: '/pages/search/index' },
+      { icon: 'clock', value: 'expiry', label: '临期', url: '/pages/expiry/index' },
+      { icon: 'list', value: 'list', label: '清单', url: '/pages/list/index' },
     ],
   },
   lifetimes: {
     ready() {
-      const pages = getCurrentPages();
-      const curPage = pages[pages.length - 1];
-      if (curPage) {
-        const nameRe = /pages\/(\w+)\/index/.exec(curPage.route);
-        if (nameRe === null) return;
-        if (nameRe[1] && nameRe) {
-          this.setData({
-            value: nameRe[1],
-          });
-        }
-      }
-
-      // 同步全局未读消息数量
-      this.setUnreadNum(app.globalData.unreadNum);
-      app.eventBus.on('unread-num-change', (unreadNum) => {
-        this.setUnreadNum(unreadNum);
-      });
+      this.syncActive();
+    },
+  },
+  pageLifetimes: {
+    show() {
+      this.syncActive();
     },
   },
   methods: {
-    handleChange(e) {
-      const { value } = e.detail;
-      wx.switchTab({ url: `/pages/${value}/index` });
+    syncActive() {
+      const pages = getCurrentPages();
+      const curPage = pages[pages.length - 1];
+      if (!curPage) return;
+      const route = curPage.route || '';
+      const found = this.data.list.find((item) => route.indexOf(`pages/${item.value}/`) !== -1);
+      this.setData({ value: found ? found.value : 'home' });
     },
-
-    /** 设置未读消息数量 */
-    setUnreadNum(unreadNum) {
-      this.setData({ unreadNum });
+    onNav(e) {
+      const { url } = e.currentTarget.dataset;
+      wx.switchTab({ url });
+    },
+    onAdd() {
+      this.setData({ sheet: true });
+    },
+    onCloseSheet() {
+      this.setData({ sheet: false });
     },
   },
 });

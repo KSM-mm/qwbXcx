@@ -1,0 +1,132 @@
+.space-form {
+  &__body {
+    padding: 24rpx 32rpx 0;
+  }
+
+  &__label {
+    margin: 16rpx 0 16rpx;
+    font-size: 24rpx;
+    font-weight: 700;
+    color: #536a5d;
+  }
+
+  &__input {
+    height: 96rpx;
+    padding: 0 24rpx;
+    border: 2rpx solid #e1e7df;
+    border-radius: 24rpx;
+    background: #fff;
+    font-size: 28rpx;
+  }
+
+  &__types {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16rpx;
+  }
+
+  &__type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8rpx;
+    height: 144rpx;
+    border: 2rpx solid #e3e9e2;
+    border-radius: 24rpx;
+    background: #fff;
+    font-size: 22rpx;
+    color: #75867c;
+
+    &--on {
+      border-color: #6ea57a;
+      background: #edf6eb;
+      color: #417c51;
+    }
+  }
+
+  &__scope {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32rpx;
+    border-radius: 24rpx;
+    background: #fff;
+    font-size: 26rpx;
+    box-shadow: 0 4rpx 12rpx rgba(48, 71, 56, 0.05);
+  }
+
+  &__private {
+    display: flex;
+    align-items: center;
+    margin-top: 40rpx;
+    padding: 32rpx;
+    border-radius: 32rpx;
+    background: #f4f0f7;
+  }
+
+  &__private-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72rpx;
+    height: 72rpx;
+    margin-right: 24rpx;
+    border-radius: 24rpx;
+    background: #e5d9ef;
+  }
+
+  &__private-body {
+    flex: 1;
+  }
+
+  &__private-title {
+    font-size: 26rpx;
+    font-weight: 700;
+  }
+
+  &__private-desc {
+    margin-top: 8rpx;
+    font-size: 22rpx;
+    color: #7c7185;
+  }
+
+  &__switch {
+    width: 88rpx;
+    height: 48rpx;
+    padding: 4rpx;
+    border-radius: 999rpx;
+    background: #d9ded9;
+    box-sizing: border-box;
+
+    &--on {
+      background: #4c8b5e;
+    }
+
+    &--on .space-form__knob {
+      transform: translateX(40rpx);
+    }
+  }
+
+  &__knob {
+    width: 40rpx;
+    height: 40rpx;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+  }
+
+  &__save {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 104rpx;
+    margin-top: 48rpx;
+    border-radius: 32rpx;
+    background: #4c8b5e;
+    color: #fff;
+    font-size: 30rpx;
+    font-weight: 700;
+  }
+}

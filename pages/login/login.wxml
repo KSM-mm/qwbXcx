@@ -1,22 +1,34 @@
-<t-navbar left-arrow />
 <t-toast id="t-toast" />
-<view class="page login">
-  <view class="login__title">欢迎登录</view>
-  <view class="login__content">
-    <view class="login__tips">使用微信身份登录后，可创建或管理家庭空间</view>
-    <t-radio-group allow-uncheck borderless value="{{radioValue}}" bind:change="onCheckChange">
-      <t-radio
-        label="同意《协议条款》"
-        value="agree"
-        t-class="radio-class"
-        t-class-icon="radio-class-icon"
-        t-class-label="radio-class-label"
-      />
-    </t-radio-group>
-    <view class="login__button">
-      <t-button theme="primary" size="large" block disabled="{{!isCheck || loading}}" loading="{{loading}}" bindtap="loginWithWeChat">
-        微信一键登录
-      </t-button>
+<view class="login">
+  <view class="login__brand">
+    <image class="login__brand-mark" src="/static/icons/brand.svg" mode="aspectFit" />
+    <text class="login__brand-name">栖物簿</text>
+  </view>
+
+  <view class="login__hero">
+    <view class="login__hero-blob login__hero-blob--left"></view>
+    <view class="login__hero-blob login__hero-blob--cabinet"></view>
+    <view class="login__hero-blob login__hero-blob--shelf"></view>
+    <image class="login__hero-logo" src="/static/icons/brand.svg" mode="aspectFit" />
+    <text class="login__hero-caption">每一件，都有家</text>
+  </view>
+
+  <view class="login__copy">
+    <view class="login__title">把家的每一处</view>
+    <view class="login__title">收纳得明明白白</view>
+    <view class="login__desc">和家人一起记录物品位置、保质期与购物清单。从此，不再翻箱倒柜。</view>
+  </view>
+
+  <view class="login__footer">
+    <view class="login__button {{loading ? 'login__button--disabled' : ''}}" bindtap="loginWithWeChat">
+      <view class="login__wechat">微</view>
+      <text>{{loading ? '登录中…' : '微信授权登录'}}</text>
+    </view>
+    <view class="login__agree" bindtap="onToggleAgree">
+      <view class="login__check {{isCheck ? 'login__check--on' : ''}}">
+        <view wx:if="{{isCheck}}" class="login__check-dot"></view>
+      </view>
+      <text class="login__legal">登录即代表你已阅读并同意《用户协议》和《隐私政策》</text>
     </view>
   </view>
 </view>

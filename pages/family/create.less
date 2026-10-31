@@ -1,20 +1,94 @@
-.family-create {
-  &__title {
-    color: rgba(0, 0, 0, 0.9);
-    font-size: 56rpx;
-    font-weight: 600;
-    line-height: 72rpx;
-    padding: 16rpx 32rpx 16rpx;
+page {
+  background-color: #f7f3e9;
+}
+
+.create {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 96rpx 56rpx;
+  background-color: #f7f3e9;
+  color: #27443a;
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
   }
 
-  &__tips {
-    color: rgba(0, 0, 0, 0.4);
+  &__brand-mark {
+    width: 64rpx;
+    height: 64rpx;
+    flex-shrink: 0;
+  }
+
+  &__brand-name {
+    font-size: 28rpx;
+    font-weight: 700;
+    color: #407b51;
+    line-height: 1;
+  }
+
+  &__copy {
+    margin-top: 96rpx;
+  }
+
+  &__title {
+    font-size: 58rpx;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    color: #29473a;
+  }
+
+  &__desc {
+    margin-top: 32rpx;
+    font-size: 28rpx;
+    line-height: 48rpx;
+    color: #718177;
+  }
+
+  &__field {
+    margin-top: 72rpx;
+  }
+
+  &__label {
+    margin-bottom: 16rpx;
     font-size: 24rpx;
-    line-height: 40rpx;
-    margin: 0 32rpx 32rpx;
+    font-weight: 600;
+    color: #5f7668;
+  }
+
+  &__input {
+    height: 104rpx;
+    padding: 0 32rpx;
+    border-radius: 32rpx;
+    background: #fffefa;
+    font-size: 30rpx;
+    color: #27443a;
+    box-shadow: 0 8rpx 24rpx rgba(48, 71, 56, 0.06);
+  }
+
+  &__footer {
+    margin-top: auto;
+    padding-top: 64rpx;
   }
 
   &__button {
-    margin: 48rpx 32rpx 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 104rpx;
+    border-radius: 32rpx;
+    background-color: #4c8b5e;
+    color: #ffffff;
+    font-size: 30rpx;
+    font-weight: 700;
+    box-shadow: 0 16rpx 36rpx rgba(65, 128, 82, 0.2);
+
+    &--disabled {
+      opacity: 0.55;
+    }
   }
 }

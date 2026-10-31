@@ -1,0 +1,52 @@
+.q-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  width: 100%;
+  padding: 24rpx;
+  border-radius: 32rpx;
+  background: #ffffff;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(48, 71, 56, 0.04);
+  box-sizing: border-box;
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88rpx;
+    height: 88rpx;
+    border-radius: 24rpx;
+
+    &--food {
+      background: #eef2d8;
+    }
+
+    &--goods {
+      background: #e4eef4;
+    }
+  }
+
+  &__body {
+    min-width: 0;
+    flex: 1;
+  }
+
+  &__name {
+    font-size: 28rpx;
+    font-weight: 600;
+    color: #30483d;
+  }
+
+  &__amount {
+    font-weight: 400;
+    color: #77887e;
+  }
+
+  &__place,
+  &__expiry {
+    margin-top: 8rpx;
+    font-size: 22rpx;
+    color: #829188;
+  }
+}

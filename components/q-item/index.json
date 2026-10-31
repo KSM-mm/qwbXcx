@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "q-icon": "/components/q-icon/index",
+    "q-pill": "/components/q-pill/index"
+  }
+}

@@ -1,5 +1,22 @@
-<t-tab-bar value="{{ value }}" theme="tag" split="{{ false }}" bind:change="handleChange">
-  <t-tab-bar-item icon="home" value="home">首页</t-tab-bar-item>
-  <t-tab-bar-item icon="chat" value="message" badge-props="{{ { count: unreadNum } }}">消息</t-tab-bar-item>
-  <t-tab-bar-item icon="user" value="my">我的</t-tab-bar-item>
-</t-tab-bar>
+<view class="q-tab">
+  <view class="q-tab__item" bindtap="onNav" data-url="/pages/home/index">
+    <q-icon name="home" size="40" color="{{value === 'home' ? '#3d7850' : '#87958d'}}" />
+    <text class="q-tab__label {{value === 'home' ? 'q-tab__label--on' : ''}}">首页</text>
+  </view>
+  <view class="q-tab__item" bindtap="onNav" data-url="/pages/search/index">
+    <q-icon name="search" size="40" color="{{value === 'search' ? '#3d7850' : '#87958d'}}" />
+    <text class="q-tab__label {{value === 'search' ? 'q-tab__label--on' : ''}}">搜索</text>
+  </view>
+  <view class="q-tab__add" bindtap="onAdd">
+    <q-icon name="plus" size="52" color="#ffffff" />
+  </view>
+  <view class="q-tab__item" bindtap="onNav" data-url="/pages/expiry/index">
+    <q-icon name="clock" size="40" color="{{value === 'expiry' ? '#3d7850' : '#87958d'}}" />
+    <text class="q-tab__label {{value === 'expiry' ? 'q-tab__label--on' : ''}}">临期</text>
+  </view>
+  <view class="q-tab__item" bindtap="onNav" data-url="/pages/list/index">
+    <q-icon name="list" size="40" color="{{value === 'list' ? '#3d7850' : '#87958d'}}" />
+    <text class="q-tab__label {{value === 'list' ? 'q-tab__label--on' : ''}}">清单</text>
+  </view>
+</view>
+<q-add-sheet show="{{sheet}}" bind:close="onCloseSheet" />

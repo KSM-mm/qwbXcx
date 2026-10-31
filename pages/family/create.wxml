@@ -1,18 +1,30 @@
-<t-navbar left-arrow />
 <t-toast id="t-toast" />
-<view class="page family-create">
-  <view class="family-create__title">创建家庭</view>
-  <view class="family-create__tips">登录后需先创建家庭，同一时间只能加入一个家庭</view>
-  <t-input
-    label="家庭名称"
-    placeholder="例如：我家"
-    maxlength="{{64}}"
-    value="{{name}}"
-    bindchange="onNameChange"
-  />
-  <view class="family-create__button">
-    <t-button theme="primary" size="large" block disabled="{{!canSubmit || loading}}" loading="{{loading}}" bindtap="onCreate">
-      创建并进入
-    </t-button>
+<view class="create">
+  <view class="create__brand">
+    <image class="create__brand-mark" src="/static/icons/brand.svg" mode="aspectFit" />
+    <text class="create__brand-name">栖物簿</text>
+  </view>
+
+  <view class="create__copy">
+    <view class="create__title">给你的家</view>
+    <view class="create__title">起一个名字</view>
+    <view class="create__desc">同一时间只能加入一个家庭。创建后即可开始整理空间和物品。</view>
+  </view>
+
+  <view class="create__field">
+    <view class="create__label">家庭名称</view>
+    <input
+      class="create__input"
+      placeholder="例如：我们的小家"
+      maxlength="64"
+      value="{{name}}"
+      bindinput="onNameChange"
+    />
+  </view>
+
+  <view class="create__footer">
+    <view class="create__button {{!canSubmit || loading ? 'create__button--disabled' : ''}}" bindtap="onCreate">
+      {{loading ? '创建中…' : '创建并进入'}}
+    </view>
   </view>
 </view>

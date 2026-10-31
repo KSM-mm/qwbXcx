@@ -1,0 +1,20 @@
+<view class="q-page expiry">
+  <q-header title="临期看板" showBack="{{false}}" />
+  <q-guide text="按到期紧急程度分组，红色表示今天到期，橙色表示 3 天内，绿色表示 7 天内。" />
+  <view class="expiry__banner">
+    <view class="expiry__banner-icon">
+      <q-icon name="clock" size="40" color="#b86a28" />
+    </view>
+    <view>
+      <view class="expiry__banner-title">本周有 3 件物品待处理</view>
+      <view class="expiry__banner-desc">及时食用，减少不必要的浪费</view>
+    </view>
+  </view>
+  <view class="expiry__group" wx:for="{{groups}}" wx:key="level">
+    <view class="expiry__head">
+      <view class="expiry__dot expiry__dot--{{item.level}}"></view>
+      <view class="expiry__title">{{item.title}}</view>
+    </view>
+    <q-item wx:for="{{item.list}}" wx:for-item="row" wx:key="id" item="{{row}}" />
+  </view>
+</view>

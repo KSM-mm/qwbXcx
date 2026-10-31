@@ -1,0 +1,55 @@
+<view class="q-page list">
+  <q-header title="购物清单" showBack="{{false}}">
+    <view slot="right" class="list__plus" bindtap="onAdd">
+      <q-icon name="plus" size="36" color="#468158" />
+    </view>
+  </q-header>
+  <q-guide text="勾选表示已购买；添加已有库存的物品时，会提示你避免重复购买。" />
+  <view class="list__banner">
+    <view>
+      <view class="list__banner-title">本次待购 <text class="list__num">{{pending.length}} 件</text></view>
+      <view class="list__banner-desc">和家人一起补齐日常所需</view>
+    </view>
+    <q-icon name="bag" size="50" color="#4b8559" />
+  </view>
+
+  <view class="list__section">
+    <view class="list__title">待购买</view>
+    <view class="list__row" wx:for="{{pending}}" wx:key="id">
+      <view class="list__check {{checkedMap[item.id] ? 'list__check--on' : ''}}" data-id="{{item.id}}" bindtap="onToggle">
+        <q-icon wx:if="{{checkedMap[item.id]}}" name="check" size="26" color="#ffffff" />
+      </view>
+      <view class="list__name {{checkedMap[item.id] ? 'list__name--done' : ''}}">
+        {{item.name}}
+        <text class="list__amount">{{item.amount}}</text>
+      </view>
+      <q-icon name="more" size="36" color="#9aaca0" />
+    </view>
+    <view class="list__add" bindtap="onAdd">
+      <q-icon name="plus" size="34" color="#4b8559" />
+      添加购物项
+    </view>
+    <view class="list__title list__title--done">已购买</view>
+    <view class="list__done" wx:for="{{done}}" wx:key="id">
+      {{item.name}} <text class="list__amount">{{item.amount}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{sheet}}" class="list__mask" bindtap="onCloseSheet">
+    <view class="list__sheet" catchtap="noop">
+      <view class="list__handle"></view>
+      <view class="list__warn">
+        <view class="list__warn-icon">
+          <q-icon name="bell" size="40" color="#ba6c29" />
+        </view>
+        <view>
+          <view class="list__warn-title">纸巾还有 6 包库存</view>
+          <view class="list__warn-desc">它已经在玄关柜中，确定还要加入购物清单吗？</view>
+        </view>
+      </view>
+      <view class="list__keep" bindtap="onKeepAdd">仍要加入</view>
+      <view class="list__stock" bindtap="onViewStock">查看库存</view>
+    </view>
+  </view>
+  <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>
+</view>

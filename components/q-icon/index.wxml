@@ -1,0 +1,4 @@
+<view
+  class="q-icon"
+  style="width: {{size}}rpx; height: {{size}}rpx; background-color: {{color}}; -webkit-mask-image: url(/static/icons/{{name}}.svg); mask-image: url(/static/icons/{{name}}.svg);"
+></view>

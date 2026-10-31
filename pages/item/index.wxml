@@ -1,0 +1,68 @@
+<view class="q-page item">
+  <q-header title="物品详情">
+    <view slot="right">
+      <q-icon name="more" size="40" color="#5b7868" />
+    </view>
+  </q-header>
+  <view class="item__hero">
+    <view class="item__hero-row">
+      <view class="item__icon">
+        <q-icon name="bag" size="56" color="#7b8a46" />
+      </view>
+      <view>
+        <view class="item__name">{{item.name}}</view>
+        <view class="item__place">{{item.place}}</view>
+        <view class="item__expiry">
+          <q-pill wx:if="{{item.level}}" text="{{item.expiry}}" tone="{{item.tone}}" />
+          <text wx:else>{{item.expiry}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="item__meta">
+      <view>
+        <view class="item__meta-label">当前库存</view>
+        <view class="item__meta-value">{{item.amount}}</view>
+      </view>
+      <view>
+        <view class="item__meta-label">分类</view>
+        <view class="item__meta-cat">{{item.category}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="item__section">
+    <view class="item__section-head">
+      <view class="item__section-title">库存批次</view>
+      <view class="item__add">+ 添加批次</view>
+    </view>
+    <view class="item__batch" wx:for="{{batches}}" wx:key="index">
+      <view class="item__batch-icon">
+        <q-icon name="box" size="34" color="#5a8462" />
+      </view>
+      <view class="item__batch-body">
+        <view class="item__batch-amount">{{item.amount}}</view>
+        <q-pill wx:if="{{item.level}}" text="{{item.expiry}}" tone="{{item.tone}}" />
+        <text wx:else class="item__batch-expiry">{{item.expiry}}</text>
+      </view>
+      <view class="item__trash" bindtap="onDelete">
+        <q-icon name="trash" size="34" color="#a85e4b" />
+      </view>
+    </view>
+    <view class="item__hint">小提示：减少批次数量为 0 时，会再次请你确认，避免误删库存记录。</view>
+  </view>
+
+  <view wx:if="{{sheet}}" class="item__mask">
+    <view class="item__dialog">
+      <view class="item__dialog-icon">
+        <q-icon name="trash" size="40" color="#c45d48" />
+      </view>
+      <view class="item__dialog-title">清空这个批次？</view>
+      <view class="item__dialog-desc">数量归零后将删除该批次记录，此操作无法撤销。</view>
+      <view class="item__dialog-actions">
+        <view class="item__cancel" bindtap="onCancel">取消</view>
+        <view class="item__confirm" bindtap="onConfirmDelete">确认清空</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{toast}}" class="q-toast">{{toast}}</view>
+</view>

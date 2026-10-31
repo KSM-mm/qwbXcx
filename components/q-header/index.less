@@ -1,0 +1,43 @@
+.q-header {
+  background: transparent;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 88rpx;
+    padding: 0 32rpx;
+  }
+
+  &__back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 50%;
+  }
+
+  &__title {
+    flex: 1;
+    text-align: center;
+    font-size: 34rpx;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #27443a;
+  }
+
+  &__right {
+    display: flex;
+    justify-content: flex-end;
+    width: 72rpx;
+  }
+
+  &--light {
+    background: #19362c;
+  }
+
+  &--light &__title {
+    color: #ffffff;
+  }
+}

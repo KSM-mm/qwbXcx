@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "q-icon": "/components/q-icon/index",
+    "q-header": "/components/q-header/index"
+  }
+}
